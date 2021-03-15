@@ -1,3 +1,4 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
@@ -6,6 +7,14 @@ import 'package:weather_application/models/forecast_model.dart';
 import 'package:weather_application/repositories/weather_repository.dart';
 import 'app.dart';
 import 'models/weather_model.dart';
+
+class SimpleBlocDelegate extends BlocObserver {
+  @override
+  void onTransition(Bloc bloc, Transition transition) {
+    super.onTransition(bloc, transition);
+    print(transition);
+  }
+}
 
 void _registerDeviceOrientations() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -23,5 +32,6 @@ void main() async {
   _registerTypeAdapters();
   await Hive.openBox<Weather>(currentBox);
   await Hive.openBox<Forecast>(forecastBox);
+  Bloc.observer = SimpleBlocDelegate();
   runApp(MyApp());
 }

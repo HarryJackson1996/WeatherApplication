@@ -1,26 +1,28 @@
 import 'package:hive/hive.dart';
+
+import 'forecast_model.dart';
 part 'weather_model.g.dart';
 
 @HiveType(typeId: 0)
 class Weather {
-  Weather({
-    this.id,
-    this.main,
-    this.description,
-    this.icon,
-    this.temp,
-    this.feelsLike,
-    this.tempMin,
-    this.tempMax,
-    this.humidity,
-    this.windSpeed,
-    this.country,
-    this.sunrise,
-    this.sunset,
-    this.dt,
-    this.name,
-    this.dtTxt,
-  });
+  Weather(
+      {this.id,
+      this.main,
+      this.description,
+      this.icon,
+      this.temp,
+      this.feelsLike,
+      this.tempMin,
+      this.tempMax,
+      this.humidity,
+      this.windSpeed,
+      this.country,
+      this.sunrise,
+      this.sunset,
+      this.dt,
+      this.name,
+      this.dtTxt,
+      this.forecast});
 
   @HiveField(0)
   int id;
@@ -54,6 +56,8 @@ class Weather {
   String name;
   @HiveField(15)
   String dtTxt;
+  @HiveField(16)
+  Forecast forecast;
 
   factory Weather.fromJson(Map<String, dynamic> json) {
     return Weather(
