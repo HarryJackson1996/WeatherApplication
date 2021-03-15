@@ -1,6 +1,7 @@
 import 'package:weather_application/clients/weather_client.dart';
 import 'package:weather_application/interfaces/i_repository.dart';
 import 'package:weather_application/models/weather_model.dart';
+import 'package:weather_application/utils/connectivity_utils.dart';
 
 const String currentBox = 'currentBox';
 const String forecastBox = 'forecastBox';
@@ -16,7 +17,8 @@ class WeatherRepository {
 
   Future<Weather> getCurrentWeather(id, [String cityName, String unit]) async {
     final localWeather = await this.box.get(id);
-    if (localWeather != null) {
+    final bool hasConnection = await ConnectivityUtils.hasConnection();
+    if (localWeather != null && !hasConnection) {
       print("localWeather");
       return localWeather;
     } else {
