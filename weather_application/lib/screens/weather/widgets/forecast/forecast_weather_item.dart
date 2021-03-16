@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:weather_application/models/weather_model.dart';
-import 'package:weather_application/screens/widgets/weather/vertical_weather_item.dart';
+import 'package:weather_application/screens/weather/widgets/weather/vertical_weather_item.dart';
 import 'package:weather_application/utils/date_utils.dart';
 import 'package:weather_application/utils/weather_icons_icons.dart';
 
