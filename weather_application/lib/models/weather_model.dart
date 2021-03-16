@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-
 import 'forecast_model.dart';
 part 'weather_model.g.dart';
 
@@ -33,13 +32,13 @@ class Weather {
   @HiveField(3)
   String icon;
   @HiveField(4)
-  double temp;
+  int temp;
   @HiveField(5)
-  double feelsLike;
+  int feelsLike;
   @HiveField(6)
-  double tempMin;
+  int tempMin;
   @HiveField(7)
-  double tempMax;
+  int tempMax;
   @HiveField(8)
   int humidity;
   @HiveField(9)
@@ -61,22 +60,21 @@ class Weather {
 
   factory Weather.fromJson(Map<String, dynamic> json) {
     return Weather(
-      id: json["weather"][0]["id"],
-      main: json["weather"][0]["main"],
-      description: json["weather"][0]["description"],
-      icon: json["weather"][0]["icon"],
-      temp: json["main"]["temp"].toDouble(),
-      feelsLike: json["main"]["feels_like"].toDouble(),
-      tempMin: json["main"]["temp_min"].toDouble(),
-      tempMax: json["main"]["temp_max"].toDouble(),
-      humidity: json["main"]["humidity"],
-      windSpeed: json["wind"]["speed"].toDouble(),
-      country: json["sys"]["country"],
-      sunrise: json["sys"]["sunrise"],
-      sunset: json["sys"]["sunset"],
-      dt: json["dt"],
-      name: json["name"],
-      dtTxt: json["dt_txt"] != null ? json["dt_txt"] : null,
-    );
+        id: json["weather"][0]["id"],
+        main: json["weather"][0]["main"],
+        description: json["weather"][0]["description"],
+        icon: json["weather"][0]["icon"],
+        temp: json["main"]["temp"].toInt(),
+        feelsLike: json["main"]["feels_like"].toInt(),
+        tempMin: json["main"]["temp_min"].toInt(),
+        tempMax: json["main"]["temp_max"].toInt(),
+        humidity: json["main"]["humidity"],
+        windSpeed: json["wind"]["speed"].toDouble(),
+        country: json["sys"]["country"],
+        sunrise: json["sys"]["sunrise"],
+        sunset: json["sys"]["sunset"],
+        dt: json["dt"],
+        name: json["name"],
+        dtTxt: json["dt_txt"] != null ? json["dt_txt"] : null);
   }
 }
