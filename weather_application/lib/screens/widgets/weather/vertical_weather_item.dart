@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ColumnWeatherWidget extends StatelessWidget {
+class VerticalWeatherWidget extends StatelessWidget {
   final String primaryText;
   final IconData iconData;
   final String value;
+  final int primaryFlex;
+  final int iconFlex;
+  final int valueFlex;
 
-  ColumnWeatherWidget({
+  VerticalWeatherWidget({
     this.primaryText,
+    this.primaryFlex = 1,
     this.iconData,
+    this.iconFlex = 1,
     this.value,
+    this.valueFlex = 1,
   });
 
   @override
@@ -18,13 +24,15 @@ class ColumnWeatherWidget extends StatelessWidget {
       children: [
         primaryText != null
             ? Expanded(
-                child: Container(
+                flex: primaryFlex,
+                child: Center(
                   child: Text(primaryText),
                 ),
               )
             : Container(),
         iconData != null
             ? Expanded(
+                flex: iconFlex,
                 child: Container(
                   child: Icon(iconData),
                 ),
@@ -32,7 +40,8 @@ class ColumnWeatherWidget extends StatelessWidget {
             : Container(),
         value != null
             ? Expanded(
-                child: Container(
+                flex: valueFlex,
+                child: Center(
                   child: Text(
                     value,
                     style: GoogleFonts.getFont(

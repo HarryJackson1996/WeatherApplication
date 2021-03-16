@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:weather_application/blocs/weather/weather_bloc.dart';
 import 'package:weather_application/models/weather_model.dart';
 import 'package:weather_application/repositories/weather_repository.dart';
-import 'package:weather_application/screens/widgets/current_weather.dart';
-import 'package:weather_application/screens/widgets/forecast_weather.dart';
+import 'package:weather_application/screens/widgets/forecast/forecast_weather.dart';
+import 'package:weather_application/screens/widgets/weather/current_weather.dart';
 
 class WeatherScreen extends StatelessWidget {
   final Weather weather;

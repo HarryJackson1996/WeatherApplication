@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:weather_application/models/weather_model.dart';
-import 'package:weather_application/screens/widgets/forecast_weather_item.dart';
+
+import 'forecast_weather_item.dart';
 
 class ForecastWeather extends StatelessWidget {
   final List<Weather> forecast;

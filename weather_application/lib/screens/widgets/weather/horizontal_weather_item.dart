@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ExtraWeatherItem extends StatelessWidget {
+class HorizontalWeatherItem extends StatelessWidget {
   final String primaryText;
   final IconData iconData;
   final String value;
 
-  ExtraWeatherItem({
+  HorizontalWeatherItem({
     this.primaryText,
     this.iconData,
     this.value,
