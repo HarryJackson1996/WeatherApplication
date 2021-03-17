@@ -4,10 +4,15 @@ import 'package:hive/hive.dart';
 import 'package:weather_application/blocs/weather/weather_bloc.dart';
 import 'package:weather_application/clients/weather_client.dart';
 import 'package:weather_application/repositories/hive_repository.dart';
+import 'package:weather_application/repositories/theme_repository.dart';
 import 'package:weather_application/repositories/weather_repository.dart';
 import 'package:weather_application/screens/weather/weather_screen.dart';
+import 'package:weather_application/themes/app_themes.dart';
+import 'blocs/theme/theme_bloc.dart';
 import 'models/weather_model.dart';
 import './utils/router.dart' as MyRouter;
+
+const String themeBox = 'themeBox';
 
 class MyApp extends StatelessWidget {
   @override
@@ -23,19 +28,33 @@ class MyApp extends StatelessWidget {
               ),
             ),
           )..add(WeatherFetchedEvent(city: 'London', id: currentBox, unit: 'metric')),
+        ),
+        BlocProvider<ThemeBloc>(
+          create: (context) => ThemeBloc(
+            repository: ThemeRepository(
+              box: HiveRepository(Hive.box<AppTheme>(themeBox)),
+            ),
+          )..add(
+              ThemeFetchedEvent(id: themeBox),
+            ),
         )
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        onGenerateRoute: MyRouter.Router.generateRoute,
-        home: Scaffold(
-          body: BlocBuilder<WeatherBloc, WeatherState>(builder: (context, state) {
-            return AnimatedSwitcher(
-              duration: Duration(milliseconds: 600),
-              child: _mapWeatherStateToWidget(state),
-            );
-          }),
-        ),
+      child: BlocBuilder<ThemeBloc, AppTheme>(
+        builder: (context, state) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            onGenerateRoute: MyRouter.Router.generateRoute,
+            theme: appThemeData[state],
+            home: Scaffold(
+              body: BlocBuilder<WeatherBloc, WeatherState>(builder: (context, state) {
+                return AnimatedSwitcher(
+                  duration: Duration(milliseconds: 600),
+                  child: _mapWeatherStateToWidget(state),
+                );
+              }),
+            ),
+          );
+        },
       ),
     );
   }

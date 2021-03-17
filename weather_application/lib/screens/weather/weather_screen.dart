@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:weather_application/blocs/theme/theme_bloc.dart';
+import 'package:weather_application/themes/app_themes.dart';
 import 'package:weather_application/utils/router.dart';
 
 import '../../widgets/animator/animator.dart';
@@ -40,7 +42,7 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
       child: Scaffold(
         appBar: AppBar(
           elevation: 0.0,
-          backgroundColor: Colors.white10,
+          backgroundColor: ThemeData().appBarTheme.backgroundColor,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
