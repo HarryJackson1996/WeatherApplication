@@ -12,58 +12,60 @@ class WeatherLeadingWidget extends StatelessWidget {
   WeatherLeadingWidget(this.weather);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Icon(
-            WeatherIcons.getWeatherIcon(weather.icon),
-            size: 90.0,
-          ),
-          Text(
-            weather.description,
-            style: GoogleFonts.getFont(
-              'Muli',
-              textStyle: TextStyle(fontWeight: FontWeight.w900, fontSize: 30.0),
-            ),
-          ),
-          Container(
-            width: double.infinity,
-            child: Text(
-              MyDateUtils.convertUnixToDateString(weather.dt, 'EEEE, d MMMM yyyy'),
-              textAlign: TextAlign.center,
-              style: GoogleFonts.getFont(
-                'Muli',
-                textStyle: TextStyle(fontWeight: FontWeight.w300, fontSize: 15.0),
+    return Column(
+      children: [
+        Expanded(
+          flex: 4,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                WeatherIcons.getWeatherIcon(weather.icon),
+                size: 60.0,
               ),
-            ),
-          ),
-          Text(
-            weather.temp.toString() + "\u00B0",
-            style: GoogleFonts.getFont(
-              'Muli',
-              textStyle: TextStyle(fontWeight: FontWeight.w900, fontSize: 80.0),
-            ),
-          ),
-          Container(
-            height: 60.0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                VerticalWeatherWidget(
-                  primaryText: 'Min',
-                  value: weather.tempMin.toString() + "\u00B0",
+              Text(
+                weather.description,
+                style: GoogleFonts.getFont(
+                  'Muli',
+                  textStyle: TextStyle(fontWeight: FontWeight.w900, fontSize: 25.0),
                 ),
-                MyDivider(dividerType: VerticalDivider),
-                VerticalWeatherWidget(
-                  primaryText: 'Max',
-                  value: weather.tempMax.toString() + "\u00B0",
+              ),
+              Text(
+                MyDateUtils.convertUnixToDateString(weather.dt, 'EEEE, d MMMM yyyy'),
+                textAlign: TextAlign.center,
+                style: GoogleFonts.getFont(
+                  'Muli',
+                  textStyle: TextStyle(fontWeight: FontWeight.w300, fontSize: 15.0),
                 ),
-              ],
-            ),
+              ),
+              Text(
+                weather.temp + "\u00B0",
+                style: GoogleFonts.getFont(
+                  'Muli',
+                  textStyle: TextStyle(fontWeight: FontWeight.w900, fontSize: 50.0),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              VerticalWeatherWidget(
+                primaryText: 'Min',
+                value: weather.tempMin + "\u00B0",
+              ),
+              MyDivider(dividerType: VerticalDivider),
+              VerticalWeatherWidget(
+                primaryText: 'Max',
+                value: weather.tempMax + "\u00B0",
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

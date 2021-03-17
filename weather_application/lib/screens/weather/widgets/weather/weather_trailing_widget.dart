@@ -19,26 +19,28 @@ class WeatherTrailingWidget extends StatelessWidget {
         MyDivider(),
         Expanded(
           flex: 1,
-          child: Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: HorizontalWeatherItem(
-                  primaryText: 'Humidity',
-                  iconData: WeatherIcons.humidity,
-                  value: weather.humidity.toString() + "%",
+          child: Container(
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: HorizontalWeatherItem(
+                    primaryText: 'Humidity',
+                    iconData: WeatherIcons.humidity,
+                    value: weather.humidity.toString() + "%",
+                  ),
                 ),
-              ),
-              MyDivider(dividerType: VerticalDivider),
-              Expanded(
-                flex: 1,
-                child: HorizontalWeatherItem(
-                  primaryText: 'Windspeed',
-                  iconData: WeatherIcons.windy_2,
-                  value: weather.windSpeed.toString() + " m/s",
+                MyDivider(dividerType: VerticalDivider),
+                Expanded(
+                  flex: 1,
+                  child: HorizontalWeatherItem(
+                    primaryText: 'Windspeed',
+                    iconData: WeatherIcons.windy_2,
+                    value: weather.windSpeed + " m/s",
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         MyDivider(),

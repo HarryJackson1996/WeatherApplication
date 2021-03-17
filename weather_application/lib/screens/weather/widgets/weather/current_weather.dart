@@ -18,7 +18,7 @@ class CurrentWeather extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Expanded(flex: 3, child: WeatherLeadingWidget(weather)),
+          Expanded(flex: 2, child: WeatherLeadingWidget(weather)),
           Expanded(flex: 1, child: WeatherTrailingWidget(weather)),
         ],
       ),
