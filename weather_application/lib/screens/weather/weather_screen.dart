@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:weather_application/utils/router.dart';
+
 import '../../widgets/animator/animator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -88,7 +90,9 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
                 Icons.settings,
                 color: Colors.black,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, settingsRoute);
+              },
             ),
           ],
         ),
