@@ -7,6 +7,7 @@ import 'package:weather_application/repositories/hive_repository.dart';
 import 'package:weather_application/repositories/weather_repository.dart';
 import 'package:weather_application/screens/weather/weather_screen.dart';
 import 'models/weather_model.dart';
+import './utils/router.dart' as MyRouter;
 
 class MyApp extends StatelessWidget {
   @override
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        onGenerateRoute: MyRouter.Router.generateRoute,
         home: Scaffold(
           body: BlocBuilder<WeatherBloc, WeatherState>(builder: (context, state) {
             return AnimatedSwitcher(
