@@ -37,7 +37,7 @@ class ForecastWeather extends StatelessWidget {
               separatorBuilder: (context, index) => Container(
                 width: 10.0,
               ),
-              padding: EdgeInsets.only(bottom: 8.0, left: 20.0),
+              padding: EdgeInsets.only(bottom: 8.0, left: 20.0, right: 20.0),
               scrollDirection: Axis.horizontal,
               itemCount: forecast.length,
               itemBuilder: (BuildContext context, int index) {

@@ -102,7 +102,7 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
             Expanded(
               flex: 3,
               child: Container(
-                padding: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
+                padding: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 10.0),
                 child: CurrentWeather(widget.weather),
               ).animate(
                 _controller,
@@ -115,7 +115,7 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
             Expanded(
               flex: 1,
               child: Container(
-                padding: EdgeInsets.only(bottom: 20.0),
+                padding: EdgeInsets.only(bottom: 10.0),
                 child: ForecastWeather(widget.weather.forecast.forecast),
               ).animate(
                 _controller,

@@ -23,7 +23,7 @@ class ForecastWeatherItem extends StatelessWidget {
               child: VerticalWeatherWidget(
                 primaryText: MyDateUtils.convertUnixToDateString(weather.dt, 'EEE, HH:00'),
                 iconData: WeatherIcons.getWeatherIcon(weather.icon),
-                value: weather.temp.toString() + "\u00B0",
+                value: weather.temp + "\u00B0",
                 iconFlex: 2,
               ),
             ),

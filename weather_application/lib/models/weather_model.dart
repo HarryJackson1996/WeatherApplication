@@ -32,17 +32,17 @@ class Weather {
   @HiveField(3)
   String icon;
   @HiveField(4)
-  int temp;
+  String temp;
   @HiveField(5)
-  int feelsLike;
+  String feelsLike;
   @HiveField(6)
-  int tempMin;
+  String tempMin;
   @HiveField(7)
-  int tempMax;
+  String tempMax;
   @HiveField(8)
   int humidity;
   @HiveField(9)
-  double windSpeed;
+  String windSpeed;
   @HiveField(10)
   String country;
   @HiveField(11)
@@ -64,12 +64,12 @@ class Weather {
         main: json["weather"][0]["main"],
         description: json["weather"][0]["description"],
         icon: json["weather"][0]["icon"],
-        temp: json["main"]["temp"].toInt(),
-        feelsLike: json["main"]["feels_like"].toInt(),
-        tempMin: json["main"]["temp_min"].toInt(),
-        tempMax: json["main"]["temp_max"].toInt(),
+        temp: json["main"]["temp"].round().toString(),
+        feelsLike: json["main"]["feels_like"].round().toString(),
+        tempMin: json["main"]["temp_min"].round().toString(),
+        tempMax: json["main"]["temp_max"].round().toString(),
         humidity: json["main"]["humidity"],
-        windSpeed: json["wind"]["speed"].toDouble(),
+        windSpeed: json["wind"]["speed"].toString(),
         country: json["sys"]["country"],
         sunrise: json["sys"]["sunrise"],
         sunset: json["sys"]["sunset"],

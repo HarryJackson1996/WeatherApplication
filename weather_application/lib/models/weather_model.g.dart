@@ -21,12 +21,12 @@ class WeatherAdapter extends TypeAdapter<Weather> {
       main: fields[1] as String,
       description: fields[2] as String,
       icon: fields[3] as String,
-      temp: fields[4] as int,
-      feelsLike: fields[5] as int,
-      tempMin: fields[6] as int,
-      tempMax: fields[7] as int,
+      temp: fields[4] as String,
+      feelsLike: fields[5] as String,
+      tempMin: fields[6] as String,
+      tempMax: fields[7] as String,
       humidity: fields[8] as int,
-      windSpeed: fields[9] as double,
+      windSpeed: fields[9] as String,
       country: fields[10] as String,
       sunrise: fields[11] as int,
       sunset: fields[12] as int,
@@ -81,9 +81,5 @@ class WeatherAdapter extends TypeAdapter<Weather> {
   int get hashCode => typeId.hashCode;
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is WeatherAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
+  bool operator ==(Object other) => identical(this, other) || other is WeatherAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
 }
