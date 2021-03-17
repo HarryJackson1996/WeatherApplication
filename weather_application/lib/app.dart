@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
                 Hive.box<Weather>(currentBox),
               ),
             ),
-          )..add(WeatherFetchedEvent(city: 'Ashford', id: currentBox, unit: 'metric')),
+          )..add(WeatherFetchedEvent(city: 'London', id: currentBox, unit: 'metric')),
         )
       ],
       child: MaterialApp(

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:hive/hive.dart';
 import 'package:weather_application/models/weather_model.dart';
 part 'forecast_model.g.dart';
