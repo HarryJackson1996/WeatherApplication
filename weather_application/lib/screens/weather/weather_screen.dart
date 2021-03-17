@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/services.dart';
 import 'package:weather_application/blocs/theme/theme_bloc.dart';
 import 'package:weather_application/themes/app_themes.dart';
 import 'package:weather_application/utils/router.dart';
@@ -28,7 +29,7 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(duration: Duration(milliseconds: 1500), vsync: this);
+    _controller = AnimationController(duration: Duration(milliseconds: 1200), vsync: this);
     Timer(Duration(milliseconds: 600), () {
       if (mounted) {
         _controller.forward();
@@ -40,9 +41,10 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
+          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
           elevation: 0.0,
-          backgroundColor: ThemeData().appBarTheme.backgroundColor,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -50,33 +52,26 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
                 widget.weather.name + ', ',
                 style: GoogleFonts.getFont(
                   'Muli',
-                  textStyle: TextStyle(
-                    fontWeight: FontWeight.w800,
-                    fontSize: 25.0,
-                    color: Colors.black,
-                  ),
-                  letterSpacing: 2.0,
+                  textStyle: GoogleFonts.getFont('Muli', textStyle: Theme.of(context).textTheme.headline1),
                 ),
               ),
               Text(
                 widget.weather.country,
-                style: GoogleFonts.getFont(
-                  'Muli',
-                  textStyle: TextStyle(
-                    fontWeight: FontWeight.w800,
-                    fontSize: 25.0,
-                    color: Colors.black,
-                  ),
-                  letterSpacing: 2.0,
-                ),
+                style: GoogleFonts.getFont('Muli', textStyle: Theme.of(context).textTheme.headline1),
               ),
             ],
+          ).animate(
+            _controller,
+            start: 0.0,
+            end: 0.4,
+            curve: Curves.linear,
+            animationType: AnimationType.FADE,
           ),
           leading: IconButton(
             icon: Container(
               child: Icon(
                 Icons.refresh,
-                color: Colors.black,
+                color: Theme.of(context).buttonColor,
               ),
             ),
             onPressed: () async {
@@ -85,17 +80,29 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
                   WeatherFetchedEvent(id: currentBox, city: 'London', unit: 'Metric'),
                 );
             },
-          ),
+          )..animate(
+              _controller,
+              start: 0.0,
+              end: 0.4,
+              curve: Curves.linear,
+              animationType: AnimationType.FADE,
+            ),
           actions: [
             IconButton(
               icon: Icon(
                 Icons.settings,
-                color: Colors.black,
+                color: Theme.of(context).buttonColor,
               ),
               onPressed: () {
                 Navigator.pushNamed(context, settingsRoute);
               },
-            ),
+            ).animate(
+              _controller,
+              start: 0.0,
+              end: 0.4,
+              curve: Curves.linear,
+              animationType: AnimationType.FADE,
+            )
           ],
         ),
         body: Column(
@@ -108,8 +115,8 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
                 child: CurrentWeather(widget.weather),
               ).animate(
                 _controller,
-                start: 0.0,
-                end: 0.5,
+                start: 0.2,
+                end: 0.7,
                 curve: Curves.linear,
                 animationType: AnimationType.FADE,
               ),

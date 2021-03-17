@@ -18,24 +18,26 @@ class WeatherLeadingWidget extends StatelessWidget {
           flex: 4,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Icon(
                 WeatherIcons.getWeatherIcon(weather.icon),
                 size: 60.0,
               ),
-              Text(
-                weather.description,
-                style: GoogleFonts.getFont(
-                  'Muli',
-                  textStyle: TextStyle(fontWeight: FontWeight.w900, fontSize: 25.0),
+              Padding(
+                padding: const EdgeInsets.only(top: 12.0, bottom: 3.0),
+                child: Text(
+                  weather.description,
+                  style: GoogleFonts.getFont(
+                    'Muli',
+                    textStyle: Theme.of(context).textTheme.headline2,
+                  ),
                 ),
               ),
-              Text(
-                MyDateUtils.convertUnixToDateString(weather.dt, 'EEEE, d MMMM yyyy'),
-                textAlign: TextAlign.center,
-                style: GoogleFonts.getFont(
-                  'Muli',
-                  textStyle: TextStyle(fontWeight: FontWeight.w300, fontSize: 15.0),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 12.0, top: 3.0),
+                child: Text(
+                  MyDateUtils.convertUnixToDateString(weather.dt, 'EEEE, d MMMM yyyy'),
                 ),
               ),
               Text(

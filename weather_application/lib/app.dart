@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:weather_application/blocs/weather/weather_bloc.dart';
@@ -39,13 +40,14 @@ class MyApp extends StatelessWidget {
             ),
         )
       ],
-      child: BlocBuilder<ThemeBloc, AppTheme>(
-        builder: (context, state) {
+      child: BlocBuilder<ThemeBloc, ThemeData>(
+        builder: (context, theme) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             onGenerateRoute: MyRouter.Router.generateRoute,
-            theme: appThemeData[state],
+            theme: theme,
             home: Scaffold(
+              backgroundColor: theme.backgroundColor,
               body: BlocBuilder<WeatherBloc, WeatherState>(builder: (context, state) {
                 return AnimatedSwitcher(
                   duration: Duration(milliseconds: 600),
