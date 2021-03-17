@@ -31,7 +31,6 @@ void main() async {
   await Hive.initFlutter();
   _registerTypeAdapters();
   await Hive.openBox<Weather>(currentBox);
-  await Hive.openBox<Forecast>(forecastBox);
   Bloc.observer = SimpleBlocDelegate();
   runApp(MyApp());
 }
