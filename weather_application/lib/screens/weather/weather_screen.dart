@@ -1,17 +1,36 @@
+import 'dart:async';
+import '../../widgets/animator/animator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:weather_application/blocs/weather/weather_bloc.dart';
 import 'package:weather_application/models/weather_model.dart';
 import 'package:weather_application/repositories/weather_repository.dart';
-import 'package:weather_application/screens/widgets/forecast/forecast_weather.dart';
-import 'package:weather_application/screens/widgets/weather/current_weather.dart';
+import 'package:weather_application/screens/weather/widgets/forecast/forecast_weather.dart';
+import 'package:weather_application/screens/weather/widgets/weather/current_weather.dart';
 
-class WeatherScreen extends StatelessWidget {
+class WeatherScreen extends StatefulWidget {
   final Weather weather;
 
   WeatherScreen(this.weather) : assert(weather != null);
+
+  @override
+  _WeatherScreenState createState() => _WeatherScreenState();
+}
+
+class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProviderStateMixin {
+  AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(duration: Duration(milliseconds: 1500), vsync: this);
+    Timer(Duration(milliseconds: 600), () {
+      if (mounted) {
+        _controller.forward();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +43,7 @@ class WeatherScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                weather.name + ', ',
+                widget.weather.name + ', ',
                 style: GoogleFonts.getFont(
                   'Muli',
                   textStyle: TextStyle(
@@ -36,7 +55,7 @@ class WeatherScreen extends StatelessWidget {
                 ),
               ),
               Text(
-                weather.country,
+                widget.weather.country,
                 style: GoogleFonts.getFont(
                   'Muli',
                   textStyle: TextStyle(
@@ -80,14 +99,26 @@ class WeatherScreen extends StatelessWidget {
               flex: 3,
               child: Container(
                 padding: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
-                child: CurrentWeather(weather),
+                child: CurrentWeather(widget.weather),
+              ).animate(
+                _controller,
+                start: 0.0,
+                end: 0.5,
+                curve: Curves.linear,
+                animationType: AnimationType.FADE,
               ),
             ),
             Expanded(
               flex: 1,
               child: Container(
                 padding: EdgeInsets.only(bottom: 20.0),
-                child: ForecastWeather(weather.forecast.forecast),
+                child: ForecastWeather(widget.weather.forecast.forecast),
+              ).animate(
+                _controller,
+                start: 0.5,
+                end: 1.0,
+                curve: Curves.linear,
+                animationType: AnimationType.FADE,
               ),
             ),
           ],

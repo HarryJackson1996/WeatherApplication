@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 extension Animator on Widget {
   Widget animate(
-    AnimationController controller,
-    Widget child, {
+    AnimationController controller, {
     Offset offset = const Offset(0.0, 0.0),
     double start = 0.0,
     double end = 1.0,
@@ -14,13 +13,13 @@ extension Animator on Widget {
       case AnimationType.FADE:
         return FadeTransition(
           opacity: fadeAnimator(controller, start, end, curve),
-          child: child,
+          child: this,
         );
         break;
       case AnimationType.TRANSITION:
         return SlideTransition(
           position: transitionAnimator(controller, offset, start, end, curve),
-          child: child,
+          child: this,
         );
         break;
       case AnimationType.FADETRANSITION:
@@ -28,15 +27,15 @@ extension Animator on Widget {
           position: transitionAnimator(controller, offset, start, end, curve),
           child: FadeTransition(
             opacity: fadeAnimator(controller, start, end, curve),
-            child: child,
+            child: this,
           ),
         );
         break;
       case AnimationType.NONE:
-        return child;
+        return this;
         break;
       default:
-        return child;
+        return this;
         break;
     }
   }
