@@ -25,7 +25,7 @@ class ForecastWeather extends StatelessWidget {
                   'Forecast',
                   style: GoogleFonts.getFont(
                     'Muli',
-                    textStyle: TextStyle(fontWeight: FontWeight.w900, fontSize: 25.0),
+                    textStyle: Theme.of(context).textTheme.headline2,
                   ),
                 ),
               ),

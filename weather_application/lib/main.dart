@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:weather_application/models/forecast_model.dart';
 import 'package:weather_application/repositories/weather_repository.dart';
+import 'package:weather_application/themes/app_themes.dart';
 import 'app.dart';
 import 'models/weather_model.dart';
 
@@ -23,6 +24,7 @@ void _registerDeviceOrientations() {
 void _registerTypeAdapters() {
   Hive.registerAdapter(WeatherAdapter());
   Hive.registerAdapter(ForecastAdapter());
+  Hive.registerAdapter(AppThemeAdapter());
 }
 
 void main() async {
@@ -31,6 +33,7 @@ void main() async {
   await Hive.initFlutter();
   _registerTypeAdapters();
   await Hive.openBox<Weather>(currentBox);
+  await Hive.openBox<AppTheme>(themeBox);
   Bloc.observer = SimpleBlocDelegate();
   runApp(MyApp());
 }

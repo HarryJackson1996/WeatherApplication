@@ -4,11 +4,10 @@ import 'package:weather_application/models/weather_model.dart';
 import 'package:weather_application/utils/connectivity_utils.dart';
 
 const String currentBox = 'currentBox';
-const String forecastBox = 'forecastBox';
 
 class WeatherRepository {
   final WeatherClient client;
-  final IRepository<dynamic> box;
+  final IRepository<Weather> box;
 
   WeatherRepository({
     this.box,
