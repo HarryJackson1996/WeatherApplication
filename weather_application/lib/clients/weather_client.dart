@@ -3,7 +3,7 @@ import 'package:weather_application/models/forecast_model.dart';
 import 'package:weather_application/models/weather_model.dart';
 
 class WeatherClient {
-  final String _apiKey = '247f9e0d951d640a8515aa3995884175';
+  final String _apiKey = 'INSERT API KEY';
   final String _baseUrl = 'https://api.openweathermap.org/data/2.5/';
   Dio _dio;
 

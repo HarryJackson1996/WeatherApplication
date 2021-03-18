@@ -24,7 +24,7 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
   void initState() {
     super.initState();
     _controller = AnimationController(duration: Duration(milliseconds: 1200), vsync: this);
-    Timer(Duration(milliseconds: 600), () {
+    Timer(Duration(milliseconds: 800), () {
       if (mounted) {
         _controller.forward();
       }
@@ -121,8 +121,8 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
               child: ForecastWeather(state.weather.forecast.forecast),
             ).animate(
               _controller,
-              start: 0.5,
-              end: 1.0,
+              start: 0.4,
+              end: 0.9,
               curve: Curves.linear,
               animationType: AnimationType.FADE,
             ),
