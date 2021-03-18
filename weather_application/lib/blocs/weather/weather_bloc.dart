@@ -31,7 +31,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
         event.city,
         event.unit,
       );
-      yield WeatherLoadSuccess(weather: weather);
+      yield WeatherLoadSuccess(weather: weather, city: event.city);
     } catch (e) {
       yield WeatherLoadFailure();
     }
