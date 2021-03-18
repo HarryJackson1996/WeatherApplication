@@ -21,8 +21,8 @@ class WeatherClient {
   final String _apiKey = 'INSERT API KEY HERE'
 }
 ```
-3. Once the API key has been added you should be good to go. You can either run the application on a simulator if you want to debug/alter the application. If you just want to view the app you can run the command flutter run --release in the terminal from the root of the Flutter application.
-
+3. Now run pub get
+4. Once the API key has been added you should be good to go. You can either run the application on a simulator if you want to debug/alter the application. If you just want to view the app you can run the command flutter run --release in the terminal from the root of the Flutter application.
 
 # Future work/ Todo
  - Include location services: Currently the intial location is defaulted to London.
@@ -30,6 +30,11 @@ class WeatherClient {
  - Responsiveness: Making sure the UI looks good on tablet would be ideal. 
  - Language support (internationalising the app).
  - Test iOS, this application was developed and tested on Android devices.
+
+# Screenshots
+<img src="./screenshots/Screenshot_1.jpg" alt="drawing" width="250"/>
+<img src="./screenshots/screenshot_2.jpg" alt="drawing" width="250"/>
+<img src="./screenshots/Screenshot_3.jpg" alt="drawing" width="250"/>
 
 # Acknowledgements 
 - <div>Icons made by <a href="https://www.flaticon.com/authors/bqlqn" title="bqlqn">bqlqn</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
