@@ -2,16 +2,16 @@
 A Flutter weather application that displays the current weather and 5 day forecast for different cities.
 
 # Packages used
-  dio: ^3.0.10
-  hive: ^2.0.0
-  hive_flutter: ^1.0.0
-  path_provider: ^2.0.1
-  flutter_bloc: ^6.1.3
-  bloc: ^6.1.3
-  equatable: ^2.0.0
-  connectivity: ^3.0.2
-  intl: ^0.17.0
-  google_fonts: ^1.1.2
+  - dio: ^3.0.10
+  - hive: ^2.0.0
+  - hive_flutter: ^1.0.0
+  - path_provider: ^2.0.1
+  - flutter_bloc: ^6.1.3
+  - bloc: ^6.1.3
+  - equatable: ^2.0.0
+  - connectivity: ^3.0.2
+  - intl: ^0.17.0
+  - google_fonts: ^1.1.2
 
 # Installing 
 1. Download the main branch of this repository.
