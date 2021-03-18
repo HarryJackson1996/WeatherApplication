@@ -4,10 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:weather_application/models/forecast_model.dart';
-import 'package:weather_application/repositories/weather_repository.dart';
 import 'package:weather_application/themes/app_themes.dart';
 import 'app.dart';
 import 'models/weather_model.dart';
+import 'utils/consts.dart';
 
 class SimpleBlocDelegate extends BlocObserver {
   @override
@@ -32,7 +32,7 @@ void main() async {
   _registerDeviceOrientations();
   await Hive.initFlutter();
   _registerTypeAdapters();
-  await Hive.openBox<Weather>(currentBox);
+  await Hive.openBox<Weather>(weatherBox);
   await Hive.openBox<AppTheme>(themeBox);
   Bloc.observer = SimpleBlocDelegate();
   runApp(MyApp());

@@ -3,8 +3,6 @@ import 'package:weather_application/interfaces/i_repository.dart';
 import 'package:weather_application/models/weather_model.dart';
 import 'package:weather_application/utils/connectivity_utils.dart';
 
-const String currentBox = 'currentBox';
-
 class WeatherRepository {
   final WeatherClient client;
   final IRepository<Weather> box;

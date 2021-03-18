@@ -6,7 +6,7 @@ class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_) => WeatherScreen(settings.arguments));
+        return MaterialPageRoute(builder: (_) => WeatherScreen());
         break;
       case settingsRoute:
         return MaterialPageRoute(builder: (_) => SettingsScreen());

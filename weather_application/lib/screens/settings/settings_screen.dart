@@ -13,10 +13,8 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         centerTitle: true,
         title: Text(
           'Settings',
@@ -33,24 +31,15 @@ class SettingsScreen extends StatelessWidget {
           },
         ),
       ),
-      body: Column(
-        children: [
-          SettingsItem(
-            title: 'Theme',
-          )
-          // ElevatedButton(
-          //   onPressed: () {
-          //     BlocProvider.of<ThemeBloc>(context).add(ThemeUpdatedEvent(theme: AppTheme.DARK, id: themeBox));
-          //   },
-          //   child: Text('Dark'),
-          // ),
-          // ElevatedButton(
-          //   onPressed: () {
-          //     BlocProvider.of<ThemeBloc>(context).add(ThemeUpdatedEvent(theme: AppTheme.LIGHT, id: themeBox));
-          //   },
-          //   child: Text('Light'),
-          // ),
-        ],
+      body: Container(
+        color: Theme.of(context).backgroundColor,
+        child: Column(
+          children: [
+            SettingsItem(
+              title: 'Theme',
+            )
+          ],
+        ),
       ),
     );
   }

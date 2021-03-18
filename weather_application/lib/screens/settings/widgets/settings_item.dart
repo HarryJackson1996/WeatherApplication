@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:weather_application/blocs/theme/theme_bloc.dart';
 import 'package:weather_application/themes/app_themes.dart';
-import '../../../app.dart';
+import '../../../utils/consts.dart';
 
 class SettingsItem extends StatelessWidget {
   final String title;
@@ -54,7 +54,10 @@ class SettingsItem extends StatelessWidget {
                 activeColor: Theme.of(context).indicatorColor,
                 focusColor: Theme.of(context).indicatorColor,
                 onChanged: (index) {
-                  BlocProvider.of<ThemeBloc>(context).add(ThemeUpdatedEvent(theme: AppTheme.LIGHT, id: themeBox));
+                  BlocProvider.of<ThemeBloc>(context).add(ThemeUpdatedEvent(
+                    theme: AppTheme.LIGHT,
+                    id: themeBox,
+                  ));
                 },
               ),
             ],

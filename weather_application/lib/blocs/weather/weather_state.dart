@@ -10,8 +10,9 @@ class WeatherInitial extends WeatherState {}
 
 class WeatherLoadSuccess extends WeatherState {
   final Weather weather;
+  final String city;
 
-  WeatherLoadSuccess({@required this.weather});
+  WeatherLoadSuccess({@required this.weather, @required this.city});
 
   @override
   List<Object> get props => [weather];
