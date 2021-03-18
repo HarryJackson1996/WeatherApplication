@@ -15,7 +15,7 @@ A Flutter weather application that displays the current weather and 5 day foreca
 
 # Installing 
 1. Download the main branch of this repository.
-2. Add your own OpenWeatherMap API key to the weather_client.dart file (WeatherClient class). The location of the file is: weather-application/weather_application/lib/clients/weather_client.dart.
+2. Add your own OpenWeatherMap API key to the weather_client.dart file (WeatherClient class). The location of the file is: weather-application/blob/main/lib/clients/weather_client.dart
 ```
 class WeatherClient {
   final String _apiKey = 'INSERT API KEY HERE'
