@@ -13,10 +13,11 @@ class WeatherClient {
 
 
 # Future work/ Todo
- - Include location services: urrently the intial location is defaulted to London.
- - Implement Google place search API for the search screen: This would allow the application to display related City results in real-time as the user starts to search for a city.
+ - Include location services: Currently the intial location is defaulted to London.
+ - Implement Google place search API for the search screen: This would allow the application to display related city results in real-time as the user starts to search for a city.
  - Responsiveness: Making sure the UI looks good on tablet would be ideal. 
  - Language support (internationalising the app).
+ - Test iOS, this application was developed and tested on Android devices.
 
 # Acknowledgements 
 <div>Icons made by <a href="https://www.flaticon.com/authors/bqlqn" title="bqlqn">bqlqn</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
