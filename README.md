@@ -32,4 +32,6 @@ class WeatherClient {
  - Test iOS, this application was developed and tested on Android devices.
 
 # Acknowledgements 
-<div>Icons made by <a href="https://www.flaticon.com/authors/bqlqn" title="bqlqn">bqlqn</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+- <div>Icons made by <a href="https://www.flaticon.com/authors/bqlqn" title="bqlqn">bqlqn</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+
+- UI design inspiration - https://dribbble.com/shots/14328625-Weather-Forecast-App
