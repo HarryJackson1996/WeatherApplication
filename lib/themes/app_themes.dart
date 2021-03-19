@@ -12,27 +12,29 @@ enum AppTheme {
 
 final appThemeData = {
   AppTheme.DARK: ThemeData(
-      brightness: Brightness.dark,
-      primaryColor: Colors.black,
+    brightness: Brightness.dark,
+    primaryColor: Colors.black,
+    backgroundColor: Color.fromRGBO(20, 20, 20, 1),
+    appBarTheme: AppBarTheme(
       backgroundColor: Color.fromRGBO(20, 20, 20, 1),
-      appBarTheme: AppBarTheme(
-        backgroundColor: Color.fromRGBO(20, 20, 20, 1),
+    ),
+    textTheme: TextTheme(
+      headline1: TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.w900,
+        fontSize: 25.0,
       ),
-      textTheme: TextTheme(
-        headline1: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.w900,
-          fontSize: 25.0,
-        ),
-        headline2: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.w800,
-          fontSize: 20.0,
-        ),
+      headline2: TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.w800,
+        fontSize: 20.0,
       ),
-      cardColor: Color.fromRGBO(40, 40, 40, 1),
-      buttonColor: Colors.white,
-      indicatorColor: Colors.white),
+    ),
+    cardColor: Color.fromRGBO(40, 40, 40, 1),
+    buttonColor: Colors.white,
+    indicatorColor: Colors.white,
+    primaryColorBrightness: Brightness.light,
+  ),
   AppTheme.LIGHT: ThemeData(
     brightness: Brightness.light,
     primaryColor: Colors.white,
@@ -55,5 +57,6 @@ final appThemeData = {
     cardColor: Colors.white,
     buttonColor: Colors.black,
     indicatorColor: Colors.black,
+    primaryColorBrightness: Brightness.dark,
   ),
 };
