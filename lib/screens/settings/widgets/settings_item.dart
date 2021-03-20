@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:weather_application/blocs/theme/theme_bloc.dart';
+import 'package:weather_application/consts/box_consts.dart';
 import 'package:weather_application/themes/app_themes.dart';
-import '../../../utils/consts.dart';
+import 'package:weather_application/utils/enums.dart';
+import 'package:weather_application/widgets/themed_text.dart';
 
 class SettingsItem extends StatelessWidget {
   final String title;
@@ -16,8 +17,6 @@ class SettingsItem extends StatelessWidget {
   });
 
   int getValue(AppTheme appTheme, Brightness brightness) {
-    print(appTheme);
-    print(brightness);
     if (appTheme == AppTheme.LIGHT && brightness == Brightness.light) {
       return 0;
     } else if (appTheme == AppTheme.DARK && brightness == Brightness.dark) {
@@ -35,17 +34,14 @@ class SettingsItem extends StatelessWidget {
         children: [
           Align(
             alignment: Alignment.centerLeft,
-            child: Text(
+            child: ThemedText(
               title,
-              style: GoogleFonts.getFont(
-                'Muli',
-                textStyle: Theme.of(context).textTheme.headline2,
-              ),
+              themedTextStyle: ThemedTextStyle.H2,
             ),
           ),
           Row(
             children: [
-              Text(
+              ThemedText(
                 'Light',
               ),
               Radio(
@@ -64,7 +60,7 @@ class SettingsItem extends StatelessWidget {
           ),
           Row(
             children: [
-              Text(
+              ThemedText(
                 'Dark',
               ),
               Radio(

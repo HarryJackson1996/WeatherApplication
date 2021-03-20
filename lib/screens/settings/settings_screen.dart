@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:weather_application/utils/enums.dart';
+import 'package:weather_application/widgets/themed_text.dart';
 import 'widgets/settings_item.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -17,12 +18,9 @@ class SettingsScreen extends StatelessWidget {
         ),
         elevation: 0.0,
         centerTitle: true,
-        title: Text(
+        title: ThemedText(
           'Settings',
-          style: GoogleFonts.getFont(
-            'Muli',
-            textStyle: Theme.of(context).textTheme.headline1,
-          ),
+          themedTextStyle: ThemedTextStyle.H1,
         ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),

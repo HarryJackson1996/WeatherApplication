@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:weather_application/consts/route_consts.dart';
 import 'package:weather_application/screens/settings/settings_screen.dart';
 import 'package:weather_application/screens/weather/weather_screen.dart';
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case '/':
+      case homeRoute:
         return MaterialPageRoute(builder: (_) => WeatherScreen());
         break;
       case settingsRoute:
@@ -24,5 +25,3 @@ class Router {
     }
   }
 }
-
-const String settingsRoute = '/settings';

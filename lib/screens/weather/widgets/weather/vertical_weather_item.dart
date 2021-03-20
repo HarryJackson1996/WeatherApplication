@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:weather_application/utils/enums.dart';
+import 'package:weather_application/widgets/themed_text.dart';
 
 class VerticalWeatherWidget extends StatelessWidget {
   final String primaryText;
@@ -26,7 +27,9 @@ class VerticalWeatherWidget extends StatelessWidget {
             ? Expanded(
                 flex: primaryFlex,
                 child: Center(
-                  child: Text(primaryText),
+                  child: ThemedText(
+                    primaryText,
+                  ),
                 ),
               )
             : Container(),
@@ -42,12 +45,9 @@ class VerticalWeatherWidget extends StatelessWidget {
             ? Expanded(
                 flex: valueFlex,
                 child: Center(
-                  child: Text(
+                  child: ThemedText(
                     value,
-                    style: GoogleFonts.getFont(
-                      'Muli',
-                      textStyle: TextStyle(fontWeight: FontWeight.w900, fontSize: 15.0),
-                    ),
+                    themedTextStyle: ThemedTextStyle.H3,
                   ),
                 ),
               )

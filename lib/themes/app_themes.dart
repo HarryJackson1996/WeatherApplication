@@ -26,8 +26,13 @@ final appThemeData = {
       ),
       headline2: TextStyle(
         color: Colors.white,
-        fontWeight: FontWeight.w800,
+        fontWeight: FontWeight.w900,
         fontSize: 20.0,
+      ),
+      headline3: TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.w900,
+        fontSize: 15.0,
       ),
     ),
     cardColor: Color.fromRGBO(40, 40, 40, 1),
@@ -50,8 +55,13 @@ final appThemeData = {
       ),
       headline2: TextStyle(
         color: Colors.black,
-        fontWeight: FontWeight.w800,
+        fontWeight: FontWeight.w900,
         fontSize: 20.0,
+      ),
+      headline3: TextStyle(
+        color: Colors.black,
+        fontWeight: FontWeight.w900,
+        fontSize: 15.0,
       ),
     ),
     cardColor: Colors.white,
