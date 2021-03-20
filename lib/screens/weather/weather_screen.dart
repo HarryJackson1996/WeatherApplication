@@ -1,17 +1,17 @@
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
+import 'package:weather_application/consts/consts.dart';
 import 'package:weather_application/models/weather_model.dart';
-import 'package:weather_application/utils/router.dart';
-import '../../widgets/animator/animator.dart';
+import 'package:weather_application/utils/enums.dart';
+import 'package:weather_application/widgets/themed_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:weather_application/blocs/weather/weather_bloc.dart';
 import 'package:weather_application/screens/weather/widgets/forecast/forecast_weather.dart';
-import 'package:weather_application/screens/weather/widgets/weather/current_weather.dart';
+import 'package:weather_application/screens/weather/widgets/weather/weather_card.dart';
 import '../search/search_screen.dart';
-import '../../utils/consts.dart';
+import '../../utils/extensions/extensions.dart';
 
 class WeatherScreen extends StatefulWidget {
   @override
@@ -50,12 +50,9 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 state is WeatherLoadSuccess
-                    ? Text(
+                    ? ThemedText(
                         state.city,
-                        style: GoogleFonts.getFont(
-                          'Muli',
-                          textStyle: GoogleFonts.getFont('Muli', textStyle: Theme.of(context).textTheme.headline1),
-                        ),
+                        themedTextStyle: ThemedTextStyle.H1,
                       )
                     : Container(),
               ],
@@ -112,7 +109,7 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
             child: Container(
               color: Theme.of(context).backgroundColor,
               padding: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 10.0),
-              child: CurrentWeather(state.weather),
+              child: CurrentWeatherCard(state.weather),
             ).animate(
               _controller,
               start: 0.2,

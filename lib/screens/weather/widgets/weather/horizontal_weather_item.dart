@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:weather_application/utils/enums.dart';
+import 'package:weather_application/widgets/themed_text.dart';
 
 class HorizontalWeatherItem extends StatelessWidget {
   final String primaryText;
@@ -33,17 +34,16 @@ class HorizontalWeatherItem extends StatelessWidget {
               children: [
                 primaryText != null
                     ? Container(
-                        child: Text(primaryText),
+                        child: ThemedText(
+                          primaryText,
+                        ),
                       )
                     : Container(),
                 value != null
                     ? Container(
-                        child: Text(
+                        child: ThemedText(
                           value,
-                          style: GoogleFonts.getFont(
-                            'Muli',
-                            textStyle: TextStyle(fontWeight: FontWeight.w900, fontSize: 15.0),
-                          ),
+                          themedTextStyle: ThemedTextStyle.H3,
                         ),
                       )
                     : Container()

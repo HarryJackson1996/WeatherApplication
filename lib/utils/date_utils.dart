@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import '../utils/extensions/extensions.dart';
 
 class MyDateUtils {
   static String unixToDateString(int dateString, String dateFormat) {
@@ -22,15 +23,5 @@ class MyDateUtils {
     } else {
       return '';
     }
-  }
-}
-
-extension DateExtension on DateTime {
-  DateTime addDate(String timezone) {
-    return this.add(Duration(seconds: int.parse(timezone)));
-  }
-
-  DateTime subtractDate(String timezone) {
-    return this.subtract(Duration(seconds: int.parse(timezone).abs()));
   }
 }

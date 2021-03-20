@@ -8,9 +8,9 @@ import 'package:weather_application/repositories/theme_repository.dart';
 import 'package:weather_application/repositories/weather_repository.dart';
 import 'package:weather_application/themes/app_themes.dart';
 import 'blocs/theme/theme_bloc.dart';
+import 'consts/box_consts.dart';
 import 'models/weather_model.dart';
 import './utils/router.dart' as MyRouter;
-import './utils/consts.dart';
 
 class MyApp extends StatelessWidget {
   @override

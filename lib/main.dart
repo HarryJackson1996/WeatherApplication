@@ -6,8 +6,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:weather_application/models/forecast_model.dart';
 import 'package:weather_application/themes/app_themes.dart';
 import 'app.dart';
+import 'consts/box_consts.dart';
 import 'models/weather_model.dart';
-import 'utils/consts.dart';
 
 class SimpleBlocDelegate extends BlocObserver {
   @override

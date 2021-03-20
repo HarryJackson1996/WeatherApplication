@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:weather_application/blocs/weather/weather_bloc.dart';
-import '../../utils/consts.dart';
+import 'package:weather_application/consts/box_consts.dart';
+import 'package:weather_application/utils/enums.dart';
+import 'package:weather_application/widgets/themed_text.dart';
+import '../../utils/extensions/extensions.dart';
 
 class SearchScreen extends SearchDelegate {
   @override
@@ -34,7 +36,7 @@ class SearchScreen extends SearchDelegate {
   Widget buildResults(BuildContext context) {
     if (query.length <= 3) {
       return Center(
-        child: Text('Search term must be greater then 3 letters'),
+        child: ThemedText('Search term must be greater then 3 letters'),
       );
     } else {
       return Container(
@@ -44,12 +46,9 @@ class SearchScreen extends SearchDelegate {
           children: [
             Container(
               padding: const EdgeInsets.only(bottom: 10.0),
-              child: Text(
+              child: ThemedText(
                 'Results',
-                style: GoogleFonts.getFont(
-                  'Muli',
-                  textStyle: Theme.of(context).textTheme.headline2,
-                ),
+                themedTextStyle: ThemedTextStyle.H2,
               ),
             ),
             GestureDetector(
@@ -69,7 +68,7 @@ class SearchScreen extends SearchDelegate {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(right: 10.0),
-                      child: Text(
+                      child: ThemedText(
                         query.capitalise(),
                       ),
                     ),
@@ -90,11 +89,5 @@ class SearchScreen extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     return Container();
-  }
-}
-
-extension Capitalise on String {
-  String capitalise() {
-    return this[0].toUpperCase() + this.substring(1);
   }
 }

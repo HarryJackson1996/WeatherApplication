@@ -3,10 +3,10 @@ import 'package:weather_application/models/weather_model.dart';
 import 'weather_leading_widget.dart';
 import 'weather_trailing_widget.dart';
 
-class CurrentWeather extends StatelessWidget {
+class CurrentWeatherCard extends StatelessWidget {
   final Weather weather;
 
-  CurrentWeather(this.weather) : assert(weather != null);
+  CurrentWeatherCard(this.weather) : assert(weather != null);
   @override
   Widget build(BuildContext context) {
     return Card(

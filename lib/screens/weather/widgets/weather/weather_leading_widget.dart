@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:weather_application/models/weather_model.dart';
 import 'package:weather_application/utils/date_utils.dart';
+import 'package:weather_application/utils/enums.dart';
 import 'package:weather_application/utils/weather_icons_icons.dart';
 import 'package:weather_application/widgets/divider.dart';
+import 'package:weather_application/widgets/themed_text.dart';
 import 'vertical_weather_item.dart';
 
 class WeatherLeadingWidget extends StatelessWidget {
@@ -26,26 +27,21 @@ class WeatherLeadingWidget extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 12.0, bottom: 3.0),
-                child: Text(
+                child: ThemedText(
                   weather.description,
-                  style: GoogleFonts.getFont(
-                    'Muli',
-                    textStyle: Theme.of(context).textTheme.headline2,
-                  ),
+                  themedTextStyle: ThemedTextStyle.H2,
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 12.0, top: 3.0),
-                child: Text(
+                child: ThemedText(
                   MyDateUtils.unixToDateString(weather.dt, 'EEEE, d MMMM yyyy'),
                 ),
               ),
-              Text(
+              ThemedText(
                 weather.temp + "\u00B0",
-                style: GoogleFonts.getFont(
-                  'Muli',
-                  textStyle: TextStyle(fontWeight: FontWeight.w900, fontSize: 50.0),
-                ),
+                themedTextStyle: ThemedTextStyle.H1,
+                fontSize: 60.0,
               ),
             ],
           ),
