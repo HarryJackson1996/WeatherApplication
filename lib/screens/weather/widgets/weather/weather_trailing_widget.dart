@@ -52,7 +52,7 @@ class WeatherTrailingWidget extends StatelessWidget {
                 child: HorizontalWeatherItem(
                   primaryText: 'Sunrise',
                   iconData: WeatherIcons.sunrise,
-                  value: MyDateUtils.convertUnixToDateString(weather.sunrise, 'Hm'),
+                  value: MyDateUtils.unixToTimezoneDateString(weather.sunrise, weather.timezone, 'Hm'),
                 ),
               ),
               MyDivider(dividerType: VerticalDivider),
@@ -60,7 +60,7 @@ class WeatherTrailingWidget extends StatelessWidget {
                 child: HorizontalWeatherItem(
                   primaryText: 'Sunset',
                   iconData: WeatherIcons.sunset,
-                  value: MyDateUtils.convertUnixToDateString(weather.sunset, 'Hm'),
+                  value: MyDateUtils.unixToTimezoneDateString(weather.sunset, weather.timezone, 'Hm'),
                 ),
               ),
             ],
