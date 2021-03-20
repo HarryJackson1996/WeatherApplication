@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:weather_application/app.dart';
-import 'package:weather_application/blocs/theme/theme_bloc.dart';
-import 'package:weather_application/themes/app_themes.dart';
-
 import 'widgets/settings_item.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -14,6 +10,11 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backwardsCompatibility: false,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Theme.of(context).backgroundColor,
+          statusBarIconBrightness: Theme.of(context).primaryColorBrightness,
+        ),
         elevation: 0.0,
         centerTitle: true,
         title: Text(
