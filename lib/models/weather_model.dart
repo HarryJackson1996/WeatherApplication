@@ -21,6 +21,7 @@ class Weather {
       this.dt,
       this.name,
       this.dtTxt,
+      this.timezone,
       this.forecast});
 
   @HiveField(0)
@@ -56,25 +57,29 @@ class Weather {
   @HiveField(15)
   String dtTxt;
   @HiveField(16)
+  String timezone;
+  @HiveField(17)
   Forecast forecast;
 
   factory Weather.fromJson(Map<String, dynamic> json) {
     return Weather(
-        id: json["weather"][0]["id"],
-        main: json["weather"][0]["main"],
-        description: json["weather"][0]["description"],
-        icon: json["weather"][0]["icon"],
-        temp: json["main"]["temp"].round().toString(),
-        feelsLike: json["main"]["feels_like"].round().toString(),
-        tempMin: json["main"]["temp_min"].round().toString(),
-        tempMax: json["main"]["temp_max"].round().toString(),
-        humidity: json["main"]["humidity"],
-        windSpeed: json["wind"]["speed"].toString(),
-        country: json["sys"]["country"],
-        sunrise: json["sys"]["sunrise"],
-        sunset: json["sys"]["sunset"],
-        dt: json["dt"],
-        name: json["name"],
-        dtTxt: json["dt_txt"] != null ? json["dt_txt"] : null);
+      id: json["weather"][0]["id"],
+      main: json["weather"][0]["main"],
+      description: json["weather"][0]["description"],
+      icon: json["weather"][0]["icon"],
+      temp: json["main"]["temp"].round().toString(),
+      feelsLike: json["main"]["feels_like"].round().toString(),
+      tempMin: json["main"]["temp_min"].round().toString(),
+      tempMax: json["main"]["temp_max"].round().toString(),
+      humidity: json["main"]["humidity"],
+      windSpeed: json["wind"]["speed"].toString(),
+      country: json["sys"]["country"],
+      sunrise: json["sys"]["sunrise"],
+      sunset: json["sys"]["sunset"],
+      dt: json["dt"],
+      name: json["name"],
+      dtTxt: json["dt_txt"] != null ? json["dt_txt"] : null,
+      timezone: json["timezone"] != null ? json["timezone"].toString() : null,
+    );
   }
 }

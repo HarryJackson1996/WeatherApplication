@@ -37,7 +37,7 @@ class WeatherLeadingWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 12.0, top: 3.0),
                 child: Text(
-                  MyDateUtils.convertUnixToDateString(weather.dt, 'EEEE, d MMMM yyyy'),
+                  MyDateUtils.unixToDateString(weather.dt, 'EEEE, d MMMM yyyy'),
                 ),
               ),
               Text(

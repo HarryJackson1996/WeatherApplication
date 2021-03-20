@@ -33,14 +33,15 @@ class WeatherAdapter extends TypeAdapter<Weather> {
       dt: fields[13] as int,
       name: fields[14] as String,
       dtTxt: fields[15] as String,
-      forecast: fields[16] as Forecast,
+      timezone: fields[16] as String,
+      forecast: fields[17] as Forecast,
     );
   }
 
   @override
   void write(BinaryWriter writer, Weather obj) {
     writer
-      ..writeByte(17)
+      ..writeByte(18)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -74,6 +75,8 @@ class WeatherAdapter extends TypeAdapter<Weather> {
       ..writeByte(15)
       ..write(obj.dtTxt)
       ..writeByte(16)
+      ..write(obj.timezone)
+      ..writeByte(17)
       ..write(obj.forecast);
   }
 

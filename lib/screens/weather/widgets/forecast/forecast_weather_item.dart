@@ -21,7 +21,7 @@ class ForecastWeatherItem extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.all(8.0),
               child: VerticalWeatherWidget(
-                primaryText: MyDateUtils.convertUnixToDateString(weather.dt, 'EEE, HH:00'),
+                primaryText: MyDateUtils.unixToDateString(weather.dt, 'EEE, HH:00'),
                 iconData: WeatherIcons.getWeatherIcon(weather.icon),
                 value: weather.temp + "\u00B0",
                 iconFlex: 2,
