@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:weather_application/utils/enums.dart';
+import 'package:weather_application/widgets/annotated_scaffold.dart';
 import 'package:weather_application/widgets/themed_text.dart';
 import 'widgets/settings_item.dart';
 
@@ -9,13 +9,8 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return AnnotatedScaffold(
       appBar: AppBar(
-        backwardsCompatibility: false,
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Theme.of(context).backgroundColor,
-          statusBarIconBrightness: Theme.of(context).primaryColorBrightness,
-        ),
         elevation: 0.0,
         centerTitle: true,
         title: ThemedText(

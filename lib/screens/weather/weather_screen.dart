@@ -1,9 +1,8 @@
-import 'dart:async';
-import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:weather_application/consts/consts.dart';
 import 'package:weather_application/models/weather_model.dart';
 import 'package:weather_application/utils/enums.dart';
+import 'package:weather_application/widgets/annotated_scaffold.dart';
 import 'package:weather_application/widgets/themed_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,39 +21,27 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
   AnimationController _controller;
 
   @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(duration: Duration(milliseconds: 1200), vsync: this);
-    Timer(Duration(milliseconds: 800), () {
-      if (mounted) {
-        _controller.forward();
-      }
-    });
+  dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<WeatherBloc, WeatherState>(
       builder: (context, state) {
-        return Scaffold(
-          backgroundColor: Theme.of(context).backgroundColor,
+        String myCity = Hive.box<Weather>(weatherBox).get(weatherBox)?.name ?? 'London';
+        return AnnotatedScaffold(
           appBar: AppBar(
-            backwardsCompatibility: false,
-            systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarColor: Theme.of(context).backgroundColor,
-              statusBarIconBrightness: Theme.of(context).primaryColorBrightness,
-            ),
             centerTitle: true,
             elevation: 0.0,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                state is WeatherLoadSuccess
-                    ? ThemedText(
-                        state.city,
-                        themedTextStyle: ThemedTextStyle.H1,
-                      )
-                    : Container(),
+                ThemedText(
+                  myCity,
+                  themedTextStyle: ThemedTextStyle.H1,
+                )
               ],
             ),
             leading: IconButton(
@@ -65,7 +52,6 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
                 ),
               ),
               onPressed: () async {
-                var myCity = Hive.box<Weather>(weatherBox).get(weatherBox)?.name ?? 'London';
                 BlocProvider.of<WeatherBloc>(context)
                   ..add(
                     WeatherFetchedEvent(id: weatherBox, city: myCity, unit: 'Metric'),
@@ -101,6 +87,12 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
 
   Widget _mapWeatherStateToWidget(WeatherState state) {
     if (state is WeatherLoadSuccess) {
+      if (_controller == null) {
+        _controller = AnimationController(duration: Duration(milliseconds: 1200), vsync: this);
+      }
+      _controller.reset();
+      _controller.forward();
+
       return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

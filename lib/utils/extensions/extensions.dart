@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:weather_application/widgets/themed_text.dart';
 import '../enums.dart';
 
 extension Capitalise on String {

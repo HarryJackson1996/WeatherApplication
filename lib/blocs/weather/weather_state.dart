@@ -8,6 +8,8 @@ abstract class WeatherState extends Equatable {
 
 class WeatherInitial extends WeatherState {}
 
+class WeatherLoading extends WeatherState {}
+
 class WeatherLoadSuccess extends WeatherState {
   final Weather weather;
   final String city;

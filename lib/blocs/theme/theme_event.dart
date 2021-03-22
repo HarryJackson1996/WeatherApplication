@@ -21,7 +21,9 @@ class ThemeUpdatedEvent extends ThemeEvent {
 class ThemeFetchedEvent extends ThemeEvent {
   final String id;
 
-  const ThemeFetchedEvent({@required this.id});
+  const ThemeFetchedEvent({
+    @required this.id,
+  });
 
   @override
   List<Object> get props => [id];

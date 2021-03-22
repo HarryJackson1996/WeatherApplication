@@ -50,9 +50,9 @@ class WeatherIcons {
   static IconData getWeatherIcon(String icon) {
     switch (icon) {
       case '01d':
-        return WeatherIcons.night;
-      case '01n':
         return WeatherIcons.sun;
+      case '01n':
+        return WeatherIcons.night;
         break;
       case '02d':
         return WeatherIcons.cloudy_day;

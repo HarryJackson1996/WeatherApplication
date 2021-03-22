@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:weather_application/models/weather_model.dart';
 import 'package:weather_application/utils/enums.dart';
 import 'package:weather_application/widgets/themed_text.dart';
-
 import 'forecast_weather_item.dart';
 
 class ForecastWeather extends StatelessWidget {
