@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 import 'package:weather_application/repositories/theme_repository.dart';
 import 'package:weather_application/themes/app_themes.dart';
@@ -16,6 +17,10 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeData> {
   Stream<ThemeData> mapEventToState(
     ThemeEvent event,
   ) async* {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+    ));
+
     if (event is ThemeFetchedEvent) {
       final AppTheme appTheme = await repository.get(event.id);
       yield appThemeData[appTheme];
@@ -23,7 +28,6 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeData> {
     if (event is ThemeUpdatedEvent) {
       await repository.put(event.id, event.theme);
       final AppTheme appTheme = await repository.get(event.id);
-
       yield appThemeData[appTheme];
     }
   }

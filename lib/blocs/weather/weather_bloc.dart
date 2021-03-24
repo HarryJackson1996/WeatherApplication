@@ -25,6 +25,9 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   }
 
   Stream<WeatherState> _mapWeatherFetchedToState(WeatherFetchedEvent event) async* {
+    if (state is WeatherInitial || state is WeatherLoadSuccess) {
+      yield WeatherLoading();
+    }
     try {
       final Weather weather = await repository.getCurrentWeather(
         event.id,
