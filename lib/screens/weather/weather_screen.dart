@@ -1,6 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:weather_application/consts/consts.dart';
 import 'package:weather_application/models/weather_model.dart';
+import 'package:weather_application/utils/date_utils.dart';
 import 'package:weather_application/utils/enums.dart';
 import 'package:weather_application/widgets/annotated_scaffold.dart';
 import 'package:weather_application/widgets/themed_text.dart';
@@ -17,13 +18,37 @@ class WeatherScreen extends StatefulWidget {
   _WeatherScreenState createState() => _WeatherScreenState();
 }
 
-class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProviderStateMixin {
+class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
 
   @override
   dispose() {
     _controller.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+  }
+
+  @override
+  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
+    super.didChangeAppLifecycleState(state);
+    switch (state) {
+      case AppLifecycleState.resumed:
+        Weather weather = Hive.box<Weather>(weatherBox).get(weatherBox);
+        String myCity = weather?.name ?? 'London';
+        if (MyDateUtils.timeDifference(weather.dt, 20)) {
+          BlocProvider.of<WeatherBloc>(context).add(
+            WeatherFetchedEvent(id: weatherBox, city: myCity, unit: 'Metric'),
+          );
+        }
+        break;
+      default:
+    }
   }
 
   @override

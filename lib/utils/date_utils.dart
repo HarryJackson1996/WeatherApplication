@@ -24,4 +24,18 @@ class MyDateUtils {
       return '';
     }
   }
+
+  static bool timeDifference(int lastUpdated, int difference) {
+    var dateTimeWeather = DateTime.fromMillisecondsSinceEpoch(lastUpdated * 1000);
+    var dateTimeNow = DateTime.now();
+    print(dateTimeNow);
+    print(dateTimeWeather);
+
+    print(dateTimeNow.difference(dateTimeWeather).inMinutes);
+    if (dateTimeNow.difference(dateTimeWeather).inMinutes.abs() > difference) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
