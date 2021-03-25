@@ -24,6 +24,7 @@ class AnnotatedScaffold extends StatelessWidget {
         resizeToAvoidBottomInset: resizeKeyboard,
         appBar: appBar,
         body: body,
+        extendBodyBehindAppBar: true,
       ),
     );
   }

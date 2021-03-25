@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:weather_application/consts/consts.dart';
+import 'package:weather_application/consts/screen_consts.dart';
 import 'package:weather_application/models/weather_model.dart';
 import 'package:weather_application/utils/date_utils.dart';
 import 'package:weather_application/utils/enums.dart';
@@ -39,11 +40,11 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
     super.didChangeAppLifecycleState(state);
     switch (state) {
       case AppLifecycleState.resumed:
-        Weather weather = Hive.box<Weather>(weatherBox).get(weatherBox);
+        Weather weather = Hive.box<Weather>(weatherBoxKey).get(weatherBoxKey);
         String myCity = weather?.name ?? 'London';
         if (MyDateUtils.timeDifference(weather.dt, 20)) {
           BlocProvider.of<WeatherBloc>(context).add(
-            WeatherFetchedEvent(id: weatherBox, city: myCity, unit: 'Metric'),
+            WeatherFetchedEvent(id: weatherBoxKey, city: myCity, unit: 'Metric'),
           );
         }
         break;
@@ -55,7 +56,7 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
   Widget build(BuildContext context) {
     return BlocBuilder<WeatherBloc, WeatherState>(
       builder: (context, state) {
-        String myCity = Hive.box<Weather>(weatherBox).get(weatherBox)?.name ?? 'London';
+        String myCity = Hive.box<Weather>(weatherBoxKey).get(weatherBoxKey)?.name ?? 'London';
         return AnnotatedScaffold(
           appBar: AppBar(
             centerTitle: true,
@@ -79,7 +80,7 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
               onPressed: () async {
                 BlocProvider.of<WeatherBloc>(context)
                   ..add(
-                    WeatherFetchedEvent(id: weatherBox, city: myCity, unit: 'Metric'),
+                    WeatherFetchedEvent(id: weatherBoxKey, city: myCity, unit: 'Metric'),
                   );
               },
             ),
@@ -124,8 +125,13 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
           Expanded(
             flex: 3,
             child: Container(
+              padding: EdgeInsets.only(
+                right: myPadding,
+                bottom: myPadding / 2,
+                top: myPadding / 2,
+                left: myPadding,
+              ),
               color: Theme.of(context).backgroundColor,
-              padding: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 10.0),
               child: CurrentWeatherCard(state.weather),
             ).animate(
               _controller,
@@ -139,7 +145,6 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
             flex: 1,
             child: Container(
               color: Theme.of(context).backgroundColor,
-              padding: EdgeInsets.only(bottom: 10.0),
               child: ForecastWeather(state.weather.forecast.forecast),
             ).animate(
               _controller,
@@ -150,7 +155,7 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
             ),
           ),
         ],
-      );
+      ).addTopbarPadding();
     }
     if (state is WeatherLoadFailure) {
       return Center(child: Text('Unable to fetch Weather'));

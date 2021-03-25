@@ -15,43 +15,45 @@ class HorizontalWeatherItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        iconData != null
-            ? Expanded(
-                flex: 2,
-                child: Container(
-                  child: Icon(iconData),
-                ),
-              )
-            : Container(),
-        Expanded(
-          flex: 3,
-          child: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                primaryText != null
-                    ? Container(
-                        child: ThemedText(
-                          primaryText,
-                        ),
-                      )
-                    : Container(),
-                value != null
-                    ? Container(
-                        child: ThemedText(
-                          value,
-                          themedTextStyle: ThemedTextStyle.H3,
-                        ),
-                      )
-                    : Container()
-              ],
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          iconData != null
+              ? Expanded(
+                  flex: 2,
+                  child: Container(
+                    child: Icon(iconData),
+                  ),
+                )
+              : Container(),
+          Expanded(
+            flex: 3,
+            child: Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  primaryText != null
+                      ? Container(
+                          child: ThemedText(
+                            primaryText,
+                          ),
+                        )
+                      : Container(),
+                  value != null
+                      ? Container(
+                          child: ThemedText(
+                            value,
+                            themedTextStyle: ThemedTextStyle.H3,
+                          ),
+                        )
+                      : Container()
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

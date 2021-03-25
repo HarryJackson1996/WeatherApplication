@@ -15,37 +15,14 @@ import './utils/router.dart' as MyRouter;
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var weatherBoxRef = Hive.box<Weather>(weatherBox);
-    var myCity = weatherBoxRef.get(weatherBox)?.name ?? 'London';
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<WeatherBloc>(
-          create: (BuildContext context) => WeatherBloc(
-            repository: WeatherRepository(
-              client: WeatherClient(),
-              box: HiveRepository(weatherBoxRef),
-            ),
-          )..add(WeatherFetchedEvent(city: myCity, id: weatherBox, unit: 'metric')),
-        ),
-        BlocProvider<ThemeBloc>(
-          create: (context) => ThemeBloc(
-            repository: ThemeRepository(
-              box: HiveRepository(Hive.box<AppTheme>(themeBox)),
-            ),
-          )..add(
-              ThemeFetchedEvent(id: themeBox),
-            ),
-        )
-      ],
-      child: BlocBuilder<ThemeBloc, ThemeData>(
-        builder: (context, theme) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            onGenerateRoute: MyRouter.Router.generateRoute,
-            theme: theme,
-          );
-        },
-      ),
+    return BlocBuilder<ThemeBloc, ThemeData>(
+      builder: (context, theme) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          onGenerateRoute: MyRouter.Router.generateRoute,
+          theme: theme,
+        );
+      },
     );
   }
 }

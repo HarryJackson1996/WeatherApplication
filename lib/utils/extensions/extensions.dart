@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../enums.dart';
+import '../../consts/screen_consts.dart';
 
 extension Capitalise on String {
   String capitalise() {
@@ -39,6 +40,16 @@ extension ThemeTextMapping on ThemedTextStyle {
         return Theme.of(context).textTheme.bodyText1.copyWith(fontSize: fontSize);
         break;
     }
+  }
+}
+
+extension PagePadding on Widget {
+  Widget addTopbarPadding() {
+    double appBarHeight = AppBar().preferredSize.height;
+    return Padding(
+      padding: EdgeInsets.only(top: appBarHeight + myPadding),
+      child: this,
+    );
   }
 }
 

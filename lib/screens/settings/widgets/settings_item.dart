@@ -29,7 +29,6 @@ class SettingsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 24.0, right: 24.0, bottom: 10.0),
       child: Column(
         children: [
           Align(
@@ -50,10 +49,12 @@ class SettingsItem extends StatelessWidget {
                 activeColor: Theme.of(context).indicatorColor,
                 focusColor: Theme.of(context).indicatorColor,
                 onChanged: (index) {
-                  BlocProvider.of<ThemeBloc>(context).add(ThemeUpdatedEvent(
-                    theme: AppTheme.LIGHT,
-                    id: themeBox,
-                  ));
+                  BlocProvider.of<ThemeBloc>(context).add(
+                    ThemeUpdatedEvent(
+                      theme: AppTheme.LIGHT,
+                      id: themeBoxKey,
+                    ),
+                  );
                 },
               ),
             ],
@@ -69,7 +70,12 @@ class SettingsItem extends StatelessWidget {
                 activeColor: Theme.of(context).indicatorColor,
                 focusColor: Theme.of(context).indicatorColor,
                 onChanged: (index) {
-                  BlocProvider.of<ThemeBloc>(context).add(ThemeUpdatedEvent(theme: AppTheme.DARK, id: themeBox));
+                  BlocProvider.of<ThemeBloc>(context).add(
+                    ThemeUpdatedEvent(
+                      theme: AppTheme.DARK,
+                      id: themeBoxKey,
+                    ),
+                  );
                 },
               ),
             ],

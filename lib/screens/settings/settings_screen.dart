@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:weather_application/consts/screen_consts.dart';
 import 'package:weather_application/utils/enums.dart';
 import 'package:weather_application/widgets/annotated_scaffold.dart';
 import 'package:weather_application/widgets/themed_text.dart';
 import 'widgets/settings_item.dart';
+import '../../utils/extensions/extensions.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key key}) : super(key: key);
@@ -27,6 +29,7 @@ class SettingsScreen extends StatelessWidget {
       ),
       body: Container(
         color: Theme.of(context).backgroundColor,
+        padding: EdgeInsets.only(left: textPadding, right: textPadding, top: myPadding / 2),
         child: Column(
           children: [
             SettingsItem(
@@ -34,7 +37,7 @@ class SettingsScreen extends StatelessWidget {
             )
           ],
         ),
-      ),
+      ).addTopbarPadding(),
     );
   }
 }

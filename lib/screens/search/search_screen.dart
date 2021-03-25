@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_application/blocs/weather/weather_bloc.dart';
 import 'package:weather_application/consts/box_consts.dart';
+import 'package:weather_application/consts/screen_consts.dart';
 import 'package:weather_application/utils/enums.dart';
 import 'package:weather_application/widgets/themed_text.dart';
 import '../../utils/extensions/extensions.dart';
@@ -61,41 +62,41 @@ class SearchScreen extends SearchDelegate {
           BlocProvider.of<WeatherBloc>(context).add(
             WeatherFetchedEvent(
               city: query.capitalise(),
-              id: weatherBox,
+              id: weatherBoxKey,
               unit: 'metric',
             ),
           );
           close(context, null);
         },
         child: Container(
-          padding: EdgeInsets.only(top: 20.0, left: 24.0),
+          padding: EdgeInsets.only(left: textPadding, top: myPadding / 2),
           color: Theme.of(context).backgroundColor,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Stack(
             children: [
-              Container(
-                padding: const EdgeInsets.only(bottom: 10.0),
-                child: ThemedText(
-                  'Results',
-                  themedTextStyle: ThemedTextStyle.H2,
-                ),
-              ),
-              Container(
-                height: 30.0,
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10.0),
-                      child: ThemedText(
-                        query.capitalise(),
-                      ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    child: ThemedText(
+                      'Results',
+                      themedTextStyle: ThemedTextStyle.H2,
                     ),
-                    Icon(
-                      Icons.arrow_forward_ios,
-                      size: 15.0,
-                    )
-                  ],
-                ),
+                  ),
+                  Container(
+                    height: 30.0,
+                    child: Row(
+                      children: [
+                        ThemedText(
+                          query.capitalise(),
+                        ),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          size: 15.0,
+                        )
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
