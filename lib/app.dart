@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
+import 'package:weather_application/blocs/settings/settings_bloc.dart';
 import 'package:weather_application/blocs/weather/weather_bloc.dart';
 import 'package:weather_application/clients/weather_client.dart';
+import 'package:weather_application/models/settings_model.dart';
 import 'package:weather_application/repositories/hive_repository.dart';
+import 'package:weather_application/repositories/settings_repository.dart';
 import 'package:weather_application/repositories/theme_repository.dart';
 import 'package:weather_application/repositories/weather_repository.dart';
 import 'package:weather_application/themes/app_themes.dart';
@@ -35,7 +38,16 @@ class MyApp extends StatelessWidget {
           )..add(
               ThemeFetchedEvent(id: themeBox),
             ),
-        )
+        ),
+        BlocProvider<SettingsBloc>(
+          create: (context) => SettingsBloc(
+            repository: SettingsRepository(
+              box: HiveRepository(Hive.box<Settings>(settingsBox)),
+            ),
+          )..add(
+              SettingsInitEvent(settingsBox),
+            ),
+        ),
       ],
       child: BlocBuilder<ThemeBloc, ThemeData>(
         builder: (context, theme) {
