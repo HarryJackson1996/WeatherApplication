@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_application/consts/screen_consts.dart';
 import 'package:weather_application/models/weather_model.dart';
 import 'package:weather_application/utils/enums.dart';
 import 'package:weather_application/widgets/themed_text.dart';
@@ -22,7 +23,7 @@ class ForecastWeather extends StatelessWidget {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Padding(
-                padding: const EdgeInsets.only(left: 24.0),
+                padding: EdgeInsets.only(left: textPadding),
                 child: ThemedText(
                   'Forecast',
                   themedTextStyle: ThemedTextStyle.H2,
@@ -33,10 +34,10 @@ class ForecastWeather extends StatelessWidget {
           Expanded(
             flex: 3,
             child: ListView.separated(
+              padding: EdgeInsets.only(left: myPadding, right: myPadding, bottom: myPadding / 2),
               separatorBuilder: (context, index) => Container(
                 width: 10.0,
               ),
-              padding: EdgeInsets.only(bottom: 8.0, left: 20.0, right: 20.0),
               scrollDirection: Axis.horizontal,
               itemCount: forecast.length,
               itemBuilder: (BuildContext context, int index) {

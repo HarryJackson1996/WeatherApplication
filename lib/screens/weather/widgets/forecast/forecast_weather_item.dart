@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_application/consts/screen_consts.dart';
 import 'package:weather_application/models/weather_model.dart';
 import 'package:weather_application/screens/weather/widgets/weather/vertical_weather_item.dart';
 import 'package:weather_application/utils/date_utils.dart';
@@ -22,7 +23,7 @@ class ForecastWeatherItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(10.0),
             ),
             child: Container(
-              padding: EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(myPadding / 2),
               child: VerticalWeatherWidget(
                 primaryText: MyDateUtils.unixToDateString(weather.dt, 'EEE, HH:00'),
                 iconData: WeatherIcons.getWeatherIcon(weather.icon),

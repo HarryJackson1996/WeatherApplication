@@ -28,18 +28,18 @@ class WeatherLeadingWidget extends StatelessWidget {
                 WeatherIcons.getWeatherIcon(weather.icon),
                 size: 60.0,
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 12.0, bottom: 3.0),
-                child: ThemedText(
-                  weather.description,
-                  themedTextStyle: ThemedTextStyle.H2,
-                ),
+              ThemedText(
+                weather.description,
+                themedTextStyle: ThemedTextStyle.H2,
               ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 12.0, top: 3.0),
-                child: ThemedText(
-                  MyDateUtils.unixToDateString(weather.dt, 'EEEE, d MMMM yyyy'),
-                ),
+              SizedBox(
+                height: 5.0,
+              ),
+              ThemedText(
+                MyDateUtils.unixToDateString(weather.dt, 'EEEE, d MMMM yyyy'),
+              ),
+              SizedBox(
+                height: 20.0,
               ),
               ThemedText(
                 TempUtils.updateTemp(weather.temp, settings.tempUnit) + "\u00B0",

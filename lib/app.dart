@@ -18,46 +18,14 @@ import './utils/router.dart' as MyRouter;
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var WeatherBoxKeyRef = Hive.box<Weather>(WeatherBoxKey);
-    var myCity = WeatherBoxKeyRef.get(WeatherBoxKey)?.name ?? 'London';
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<WeatherBloc>(
-          create: (BuildContext context) => WeatherBloc(
-            repository: WeatherRepository(
-              client: WeatherClient(),
-              box: HiveRepository(WeatherBoxKeyRef),
-            ),
-          )..add(WeatherFetchedEvent(city: myCity, id: WeatherBoxKey, unit: 'metric')),
-        ),
-        BlocProvider<ThemeBloc>(
-          create: (context) => ThemeBloc(
-            repository: ThemeRepository(
-              box: HiveRepository(Hive.box<AppTheme>(themeBoxKey)),
-            ),
-          )..add(
-              ThemeFetchedEvent(id: themeBoxKey),
-            ),
-        ),
-        BlocProvider<SettingsBloc>(
-          create: (context) => SettingsBloc(
-            repository: SettingsRepository(
-              box: HiveRepository(Hive.box<Settings>(settingsBoxKey)),
-            ),
-          )..add(
-              SettingsInitEvent(settingsBoxKey),
-            ),
-        ),
-      ],
-      child: BlocBuilder<ThemeBloc, AppTheme>(
-        builder: (context, theme) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            onGenerateRoute: MyRouter.Router.generateRoute,
-            theme: appThemeData[theme],
-          );
-        },
-      ),
+    return BlocBuilder<ThemeBloc, AppTheme>(
+      builder: (context, theme) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          onGenerateRoute: MyRouter.Router.generateRoute,
+          theme: appThemeData[theme],
+        );
+      },
     );
   }
 }

@@ -19,7 +19,6 @@ class SettingsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 24.0, right: 24.0, bottom: 10.0),
       child: Column(
         children: [
           Align(
@@ -36,6 +35,7 @@ class SettingsItem extends StatelessWidget {
               onClick: onClicks[i],
             ),
           }
+
         ],
       ),
     );
