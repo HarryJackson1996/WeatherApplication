@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:weather_application/blocs/settings/settings_bloc.dart';
 import 'package:weather_application/consts/consts.dart';
 import 'package:weather_application/models/weather_model.dart';
 import 'package:weather_application/utils/date_utils.dart';
@@ -39,11 +40,11 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
     super.didChangeAppLifecycleState(state);
     switch (state) {
       case AppLifecycleState.resumed:
-        Weather weather = Hive.box<Weather>(weatherBox).get(weatherBox);
+        Weather weather = Hive.box<Weather>(WeatherBoxKey).get(WeatherBoxKey);
         String myCity = weather?.name ?? 'London';
         if (MyDateUtils.timeDifference(weather.dt, 20)) {
           BlocProvider.of<WeatherBloc>(context).add(
-            WeatherFetchedEvent(id: weatherBox, city: myCity, unit: 'Metric'),
+            WeatherFetchedEvent(id: WeatherBoxKey, city: myCity, unit: 'Metric'),
           );
         }
         break;
@@ -55,7 +56,7 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
   Widget build(BuildContext context) {
     return BlocBuilder<WeatherBloc, WeatherState>(
       builder: (context, state) {
-        String myCity = Hive.box<Weather>(weatherBox).get(weatherBox)?.name ?? 'London';
+        String myCity = Hive.box<Weather>(WeatherBoxKey).get(WeatherBoxKey)?.name ?? 'London';
         return AnnotatedScaffold(
           appBar: AppBar(
             centerTitle: true,
@@ -79,7 +80,7 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
               onPressed: () async {
                 BlocProvider.of<WeatherBloc>(context)
                   ..add(
-                    WeatherFetchedEvent(id: weatherBox, city: myCity, unit: 'Metric'),
+                    WeatherFetchedEvent(id: WeatherBoxKey, city: myCity, unit: 'Metric'),
                   );
               },
             ),
@@ -118,38 +119,42 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
       _controller.reset();
       _controller.forward();
 
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Expanded(
-            flex: 3,
-            child: Container(
-              color: Theme.of(context).backgroundColor,
-              padding: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 10.0),
-              child: CurrentWeatherCard(state.weather),
-            ).animate(
-              _controller,
-              start: 0.2,
-              end: 0.7,
-              curve: Curves.linear,
-              animationType: AnimationType.FADE,
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Container(
-              color: Theme.of(context).backgroundColor,
-              padding: EdgeInsets.only(bottom: 10.0),
-              child: ForecastWeather(state.weather.forecast.forecast),
-            ).animate(
-              _controller,
-              start: 0.4,
-              end: 0.9,
-              curve: Curves.linear,
-              animationType: AnimationType.FADE,
-            ),
-          ),
-        ],
+      return BlocBuilder<SettingsBloc, SettingsState>(
+        builder: (context, settingsState) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 3,
+                child: Container(
+                  color: Theme.of(context).backgroundColor,
+                  padding: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 10.0),
+                  child: CurrentWeatherCard(state.weather, settingsState.settings),
+                ).animate(
+                  _controller,
+                  start: 0.2,
+                  end: 0.7,
+                  curve: Curves.linear,
+                  animationType: AnimationType.FADE,
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  color: Theme.of(context).backgroundColor,
+                  padding: EdgeInsets.only(bottom: 10.0),
+                  child: ForecastWeather(state.weather.forecast.forecast, settingsState.settings),
+                ).animate(
+                  _controller,
+                  start: 0.4,
+                  end: 0.9,
+                  curve: Curves.linear,
+                  animationType: AnimationType.FADE,
+                ),
+              ),
+            ],
+          );
+        },
       );
     }
     if (state is WeatherLoadFailure) {

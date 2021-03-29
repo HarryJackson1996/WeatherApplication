@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:weather_application/models/weather_model.dart';
 import 'package:weather_application/utils/date_utils.dart';
 import 'package:weather_application/utils/enums.dart';
+import 'package:weather_application/utils/temp_utils.dart';
 import 'package:weather_application/utils/weather_icons_icons.dart';
 import 'package:weather_application/widgets/divider.dart';
 import 'package:weather_application/widgets/themed_text.dart';
 import 'vertical_weather_item.dart';
+import 'package:weather_application/models/settings_model.dart';
 
 class WeatherLeadingWidget extends StatelessWidget {
   final Weather weather;
+  final Settings settings;
 
-  WeatherLeadingWidget(this.weather);
+  WeatherLeadingWidget(this.weather, this.settings);
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -39,7 +42,7 @@ class WeatherLeadingWidget extends StatelessWidget {
                 ),
               ),
               ThemedText(
-                weather.temp + "\u00B0",
+                TempUtils.updateTemp(weather.temp, settings.tempUnit) + "\u00B0",
                 themedTextStyle: ThemedTextStyle.H1,
                 fontSize: 60.0,
               ),
@@ -53,12 +56,12 @@ class WeatherLeadingWidget extends StatelessWidget {
             children: [
               VerticalWeatherWidget(
                 primaryText: 'Min',
-                value: weather.tempMin + "\u00B0",
+                value: TempUtils.updateTemp(weather.tempMin, settings.tempUnit) + "\u00B0",
               ),
               MyDivider(dividerType: VerticalDivider),
               VerticalWeatherWidget(
                 primaryText: 'Max',
-                value: weather.tempMax + "\u00B0",
+                value: TempUtils.updateTemp(weather.tempMax, settings.tempUnit) + "\u00B0",
               ),
             ],
           ),
