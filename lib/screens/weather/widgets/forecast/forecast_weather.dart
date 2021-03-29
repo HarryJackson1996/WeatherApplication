@@ -4,11 +4,13 @@ import 'package:weather_application/models/weather_model.dart';
 import 'package:weather_application/utils/enums.dart';
 import 'package:weather_application/widgets/themed_text.dart';
 import 'forecast_weather_item.dart';
+import 'package:weather_application/models/settings_model.dart';
 
 class ForecastWeather extends StatelessWidget {
   final List<Weather> forecast;
+  final Settings settings;
 
-  ForecastWeather(this.forecast) : assert(forecast != null);
+  ForecastWeather(this.forecast, this.settings) : assert(forecast != null);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class ForecastWeather extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount: forecast.length,
               itemBuilder: (BuildContext context, int index) {
-                return ForecastWeatherItem(forecast[index]);
+                return ForecastWeatherItem(forecast[index], settings);
               },
             ),
           ),

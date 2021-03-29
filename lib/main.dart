@@ -15,6 +15,7 @@ import 'models/weather_model.dart';
 import 'repositories/hive_repository.dart';
 import 'repositories/theme_repository.dart';
 import 'consts/box_consts.dart';
+import 'package:weather_application/models/settings_model.dart';
 
 class SimpleBlocDelegate extends BlocObserver {
   @override
@@ -32,6 +33,8 @@ void _registerTypeAdapters() {
   Hive.registerAdapter(WeatherAdapter());
   Hive.registerAdapter(ForecastAdapter());
   Hive.registerAdapter(AppThemeAdapter());
+  Hive.registerAdapter(SettingsAdapter());
+  Hive.registerAdapter(TempUnitAdapter());
 }
 
 void main() async {
@@ -41,6 +44,7 @@ void main() async {
   _registerTypeAdapters();
   var weatherBox = await Hive.openBox<Weather>(weatherBoxKey);
   var themeBox = await Hive.openBox<AppTheme>(themeBoxKey);
+  var settingsBox = await Hive.openBox<Settings>(settingsBoxKey);
   Bloc.observer = SimpleBlocDelegate();
   var myCity = weatherBox.get(weatherBoxKey)?.name ?? 'London';
   runApp(
@@ -69,6 +73,15 @@ void main() async {
               ThemeFetchedEvent(
                 id: themeBoxKey,
               ),
+            ),
+        ),
+         BlocProvider<SettingsBloc>(
+          create: (context) => SettingsBloc(
+            repository: SettingsRepository(
+              box: HiveRepository(settingsBox),
+            ),
+          )..add(
+              SettingsInitEvent(settingsBoxKey),
             ),
         ),
       ],

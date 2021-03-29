@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:weather_application/blocs/settings/settings_bloc.dart';
 import 'package:weather_application/consts/consts.dart';
 import 'package:weather_application/consts/screen_consts.dart';
 import 'package:weather_application/models/weather_model.dart';
@@ -118,44 +119,46 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
       }
       _controller.reset();
       _controller.forward();
-
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Expanded(
-            flex: 3,
-            child: Container(
-              padding: EdgeInsets.only(
-                right: myPadding,
-                bottom: myPadding / 2,
-                top: myPadding / 2,
-                left: myPadding,
+      return BlocBuilder<SettingsBloc, SettingsState>(
+        builder: (context, settingsState) {
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 3,
+                child: Container(
+                  padding: EdgeInsets.only(
+                    right: myPadding,
+                    bottom: myPadding / 2,
+                    top: myPadding / 2,
+                    left: myPadding,
+                  ),
+                  color: Theme.of(context).backgroundColor,
+                  child: CurrentWeatherCard(state.weather, settingsState.settings),
+                ).animate(
+                  _controller,
+                  start: 0.2,
+                  end: 0.7,
+                  curve: Curves.linear,
+                  animationType: AnimationType.FADE,
+                ),
               ),
-              color: Theme.of(context).backgroundColor,
-              child: CurrentWeatherCard(state.weather),
-            ).animate(
-              _controller,
-              start: 0.2,
-              end: 0.7,
-              curve: Curves.linear,
-              animationType: AnimationType.FADE,
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Container(
-              color: Theme.of(context).backgroundColor,
-              child: ForecastWeather(state.weather.forecast.forecast),
-            ).animate(
-              _controller,
-              start: 0.4,
-              end: 0.9,
-              curve: Curves.linear,
-              animationType: AnimationType.FADE,
-            ),
-          ),
-        ],
-      ).addTopbarPadding();
+              Expanded(
+                flex: 1,
+                child: Container(
+                  color: Theme.of(context).backgroundColor,
+                  child: ForecastWeather(state.weather.forecast.forecast,  settingsState.settings),
+                ).animate(
+                  _controller,
+                  start: 0.4,
+                  end: 0.9,
+                  curve: Curves.linear,
+                  animationType: AnimationType.FADE,
+                ),
+              ),
+            ],
+          ).addTopbarPadding();
+      });
     }
     if (state is WeatherLoadFailure) {
       return Center(child: Text('Unable to fetch Weather'));

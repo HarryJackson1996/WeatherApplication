@@ -3,13 +3,14 @@ import 'package:weather_application/models/weather_model.dart';
 import 'package:weather_application/utils/date_utils.dart';
 import 'package:weather_application/utils/weather_icons_icons.dart';
 import 'package:weather_application/widgets/divider.dart';
-
+import 'package:weather_application/models/settings_model.dart';
 import 'horizontal_weather_item.dart';
 
 class WeatherTrailingWidget extends StatelessWidget {
   final Weather weather;
+  final Settings settings;
 
-  WeatherTrailingWidget(this.weather);
+  WeatherTrailingWidget(this.weather, this.settings);
 
   @override
   Widget build(BuildContext context) {

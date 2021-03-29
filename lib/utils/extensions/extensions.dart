@@ -6,6 +6,10 @@ extension Capitalise on String {
   String capitalise() {
     return this[0].toUpperCase() + this.substring(1);
   }
+
+  String unCapitalise() {
+    return this.toLowerCase();
+  }
 }
 
 extension DateExtension on DateTime {

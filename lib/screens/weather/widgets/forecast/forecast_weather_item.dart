@@ -3,12 +3,15 @@ import 'package:weather_application/consts/screen_consts.dart';
 import 'package:weather_application/models/weather_model.dart';
 import 'package:weather_application/screens/weather/widgets/weather/vertical_weather_item.dart';
 import 'package:weather_application/utils/date_utils.dart';
+import 'package:weather_application/utils/temp_utils.dart';
 import 'package:weather_application/utils/weather_icons_icons.dart';
+import 'package:weather_application/models/settings_model.dart';
 
 class ForecastWeatherItem extends StatelessWidget {
   final Weather weather;
+  final Settings settings;
 
-  ForecastWeatherItem(this.weather);
+  ForecastWeatherItem(this.weather, this.settings);
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -24,7 +27,7 @@ class ForecastWeatherItem extends StatelessWidget {
               child: VerticalWeatherWidget(
                 primaryText: MyDateUtils.unixToDateString(weather.dt, 'EEE, HH:00'),
                 iconData: WeatherIcons.getWeatherIcon(weather.icon),
-                value: weather.temp + "\u00B0",
+                value: TempUtils.updateTemp(weather.temp, settings.tempUnit) + "\u00B0",
                 iconFlex: 2,
               ),
             ),
