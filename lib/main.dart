@@ -5,9 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:weather_application/models/forecast_model.dart';
+import 'package:weather_application/repositories/settings_repository.dart';
 import 'package:weather_application/repositories/weather_repository.dart';
 import 'package:weather_application/themes/app_themes.dart';
 import 'app.dart';
+import 'blocs/settings/settings_bloc.dart';
 import 'blocs/theme/theme_bloc.dart';
 import 'blocs/weather/weather_bloc.dart';
 import 'clients/weather_client.dart';
@@ -75,7 +77,7 @@ void main() async {
               ),
             ),
         ),
-         BlocProvider<SettingsBloc>(
+        BlocProvider<SettingsBloc>(
           create: (context) => SettingsBloc(
             repository: SettingsRepository(
               box: HiveRepository(settingsBox),

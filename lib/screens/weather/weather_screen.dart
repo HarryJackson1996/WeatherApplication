@@ -121,7 +121,7 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
       _controller.forward();
       return BlocBuilder<SettingsBloc, SettingsState>(
         builder: (context, settingsState) {
-          Column(
+          return Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Expanded(
@@ -147,7 +147,7 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
                 flex: 1,
                 child: Container(
                   color: Theme.of(context).backgroundColor,
-                  child: ForecastWeather(state.weather.forecast.forecast,  settingsState.settings),
+                  child: ForecastWeather(state.weather.forecast.forecast, settingsState.settings),
                 ).animate(
                   _controller,
                   start: 0.4,
@@ -158,7 +158,8 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
               ),
             ],
           ).addTopbarPadding();
-      });
+        },
+      );
     }
     if (state is WeatherLoadFailure) {
       return Center(child: Text('Unable to fetch Weather'));
