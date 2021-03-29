@@ -35,9 +35,9 @@ void main() async {
   _registerDeviceOrientations();
   await Hive.initFlutter();
   _registerTypeAdapters();
-  await Hive.openBox<Weather>(weatherBox);
-  await Hive.openBox<AppTheme>(themeBox);
-  await Hive.openBox<Settings>(settingsBox);
+  await Hive.openBox<Weather>(WeatherBoxKey);
+  await Hive.openBox<AppTheme>(themeBoxKey);
+  await Hive.openBox<Settings>(settingsBoxKey);
   Bloc.observer = SimpleBlocDelegate();
   runApp(MyApp());
 }

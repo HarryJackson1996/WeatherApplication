@@ -40,11 +40,11 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
     super.didChangeAppLifecycleState(state);
     switch (state) {
       case AppLifecycleState.resumed:
-        Weather weather = Hive.box<Weather>(weatherBox).get(weatherBox);
+        Weather weather = Hive.box<Weather>(WeatherBoxKey).get(WeatherBoxKey);
         String myCity = weather?.name ?? 'London';
         if (MyDateUtils.timeDifference(weather.dt, 20)) {
           BlocProvider.of<WeatherBloc>(context).add(
-            WeatherFetchedEvent(id: weatherBox, city: myCity, unit: 'Metric'),
+            WeatherFetchedEvent(id: WeatherBoxKey, city: myCity, unit: 'Metric'),
           );
         }
         break;
@@ -56,7 +56,7 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
   Widget build(BuildContext context) {
     return BlocBuilder<WeatherBloc, WeatherState>(
       builder: (context, state) {
-        String myCity = Hive.box<Weather>(weatherBox).get(weatherBox)?.name ?? 'London';
+        String myCity = Hive.box<Weather>(WeatherBoxKey).get(WeatherBoxKey)?.name ?? 'London';
         return AnnotatedScaffold(
           appBar: AppBar(
             centerTitle: true,
@@ -80,7 +80,7 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
               onPressed: () async {
                 BlocProvider.of<WeatherBloc>(context)
                   ..add(
-                    WeatherFetchedEvent(id: weatherBox, city: myCity, unit: 'Metric'),
+                    WeatherFetchedEvent(id: WeatherBoxKey, city: myCity, unit: 'Metric'),
                   );
               },
             ),
