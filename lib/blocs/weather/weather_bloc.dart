@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:weather_application/models/weather_model.dart';
@@ -25,18 +26,15 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   }
 
   Stream<WeatherState> _mapWeatherFetchedToState(WeatherFetchedEvent event) async* {
-    if (state is WeatherInitial || state is WeatherLoadSuccess) {
+    if (state is! WeatherLoading) {
       yield WeatherLoading();
     }
     try {
-      final Weather weather = await repository.getCurrentWeather(
-        event.id,
-        event.city,
-        event.unit,
-      );
+      final Weather weather = await repository.getCurrentWeather(event.id, event.city, event.unit);
+      print(weather);
       yield WeatherLoadSuccess(weather: weather, city: event.city);
     } catch (e) {
-      yield WeatherLoadFailure();
+      yield WeatherLoadFailure(e);
     }
   }
 }

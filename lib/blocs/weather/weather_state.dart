@@ -20,4 +20,11 @@ class WeatherLoadSuccess extends WeatherState {
   List<Object> get props => [weather];
 }
 
-class WeatherLoadFailure extends WeatherState {}
+class WeatherLoadFailure extends WeatherState {
+  final DioError error;
+
+  WeatherLoadFailure(this.error);
+
+  @override
+  List<Object> get props => [error];
+}

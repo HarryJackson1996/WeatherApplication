@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:weather_application/clients/weather_client.dart';
 import 'package:weather_application/interfaces/i_repository.dart';
 import 'package:weather_application/models/weather_model.dart';
@@ -15,14 +16,22 @@ class WeatherRepository {
   Future<Weather> getCurrentWeather(id, [String cityName, String unit]) async {
     final localWeather = await this.box.get(id);
     final bool hasConnection = await ConnectivityUtils.hasConnection();
+
     if (localWeather != null && !hasConnection) {
-      print("localWeather");
+      print('localWeather');
       return localWeather;
     } else {
-      var remoteWeather = await this.client.fetchCurrentWeather(cityName: cityName, unit: unit);
-      remoteWeather.forecast = await this.client.fetchForecastWeather(cityName: cityName, unit: unit);
+      Weather remoteWeather;
+      await Future.wait([
+        this.client.fetchCurrentWeather(cityName: cityName, unit: unit),
+        this.client.fetchForecastWeather(cityName: cityName, unit: unit),
+      ]).then(
+        (value) => {
+          remoteWeather = value[0],
+          remoteWeather.forecast = value[1],
+        },
+      );
       await this.box.put(id, remoteWeather);
-      print("remoteWeather");
       return remoteWeather;
     }
   }
