@@ -3,6 +3,7 @@ import 'package:weather_application/blocs/settings/settings_bloc.dart';
 import 'package:weather_application/consts/consts.dart';
 import 'package:weather_application/consts/screen_consts.dart';
 import 'package:weather_application/models/weather_model.dart';
+import 'package:weather_application/widgets/errors/weather_error.dart';
 import 'package:weather_application/utils/date_utils.dart';
 import 'package:weather_application/utils/enums.dart';
 import 'package:weather_application/widgets/annotated_scaffold.dart';
@@ -57,7 +58,12 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
   Widget build(BuildContext context) {
     return BlocBuilder<WeatherBloc, WeatherState>(
       builder: (context, state) {
-        String myCity = Hive.box<Weather>(weatherBoxKey).get(weatherBoxKey)?.name ?? 'London';
+        String myCity;
+        if (state is WeatherLoadSuccess) {
+          myCity = state.city;
+        } else {
+          myCity = '';
+        }
         return AnnotatedScaffold(
           appBar: AppBar(
             centerTitle: true,
@@ -114,11 +120,7 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
 
   Widget _mapWeatherStateToWidget(WeatherState state) {
     if (state is WeatherLoadSuccess) {
-      if (_controller == null) {
-        _controller = AnimationController(duration: Duration(milliseconds: 1200), vsync: this);
-      }
-      _controller.reset();
-      _controller.forward();
+      playAndResetAnimation();
       return BlocBuilder<SettingsBloc, SettingsState>(
         builder: (context, settingsState) {
           return Column(
@@ -162,11 +164,26 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
       );
     }
     if (state is WeatherLoadFailure) {
-      return Center(child: Text('Unable to fetch Weather'));
+      playAndResetAnimation();
+      return WeatherErrorWidget(dioError: state.error).animate(
+        _controller,
+        start: 0.2,
+        end: 0.7,
+        curve: Curves.linear,
+        animationType: AnimationType.FADE,
+      );
     } else {
       return Center(
         child: CircularProgressIndicator(),
       );
     }
+  }
+
+  void playAndResetAnimation() {
+    if (_controller == null) {
+      _controller = AnimationController(duration: Duration(milliseconds: 1200), vsync: this);
+    }
+    _controller.reset();
+    _controller.forward();
   }
 }
