@@ -3,7 +3,7 @@ import 'package:weather_application/blocs/settings/settings_bloc.dart';
 import 'package:weather_application/consts/consts.dart';
 import 'package:weather_application/consts/screen_consts.dart';
 import 'package:weather_application/models/weather_model.dart';
-import 'package:weather_application/widgets/errors/weather_error.dart';
+import 'package:weather_application/widgets/weather_error.dart';
 import 'package:weather_application/utils/date_utils.dart';
 import 'package:weather_application/utils/enums.dart';
 import 'package:weather_application/widgets/annotated_scaffold.dart';
