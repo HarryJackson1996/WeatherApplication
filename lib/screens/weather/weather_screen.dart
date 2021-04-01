@@ -64,7 +64,6 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
         } else {
           myCity = '';
         }
-
         return AnnotatedScaffold(
           appBar: AppBar(
             centerTitle: true,
