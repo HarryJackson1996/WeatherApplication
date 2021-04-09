@@ -124,10 +124,10 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
       return BlocBuilder<SettingsBloc, SettingsState>(
         builder: (context, settingsState) {
           return Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
-                flex: 3,
+                flex: 4,
                 child: Container(
                   padding: EdgeInsets.only(
                     right: myPadding,
@@ -159,7 +159,7 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
                 ),
               ),
             ],
-          ).addTopbarPadding();
+          );
         },
       );
     }
@@ -173,8 +173,13 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
         animationType: AnimationType.FADE,
       );
     } else {
-      return Center(
-        child: CircularProgressIndicator(),
+      return Padding(
+        padding: EdgeInsets.only(
+          bottom: AppBar().preferredSize.height,
+        ),
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
       );
     }
   }

@@ -9,7 +9,6 @@ import 'package:weather_application/utils/enums.dart';
 import 'package:weather_application/widgets/annotated_scaffold.dart';
 import 'package:weather_application/widgets/themed_text.dart';
 import 'widgets/settings_item.dart';
-import '../../utils/extensions/extensions.dart';
 import 'package:weather_application/screens/settings/utils/settings_utils.dart';
 import 'package:weather_application/models/settings_model.dart';
 
@@ -36,7 +35,11 @@ class SettingsScreen extends StatelessWidget {
       ),
       body: Container(
         color: Theme.of(context).backgroundColor,
-        padding: EdgeInsets.only(left: textPadding, right: textPadding, top: myPadding / 2),
+        padding: EdgeInsets.only(
+          left: textPadding,
+          right: textPadding,
+          top: textPadding / 2,
+        ),
         child: Column(
           children: [
             SettingsItem(
@@ -81,7 +84,7 @@ class SettingsScreen extends StatelessWidget {
             }),
           ],
         ),
-      ).addTopbarPadding(),
+      ),
     );
   }
 }

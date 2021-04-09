@@ -19,8 +19,10 @@ class WeatherErrorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: textPadding,
+      padding: EdgeInsets.only(
+        left: textPadding,
+        right: textPadding,
+        bottom: AppBar().preferredSize.height,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

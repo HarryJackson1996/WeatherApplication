@@ -47,16 +47,6 @@ extension ThemeTextMapping on ThemedTextStyle {
   }
 }
 
-extension PagePadding on Widget {
-  Widget addTopbarPadding() {
-    double appBarHeight = AppBar().preferredSize.height;
-    return Padding(
-      padding: EdgeInsets.only(top: appBarHeight + myPadding),
-      child: this,
-    );
-  }
-}
-
 extension Animator on Widget {
   Widget animate(
     AnimationController controller, {

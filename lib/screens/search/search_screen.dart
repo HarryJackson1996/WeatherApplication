@@ -12,7 +12,6 @@ class SearchScreen extends SearchDelegate {
   ThemeData appBarTheme(BuildContext context) {
     return Theme.of(context).copyWith(
       accentColor: Colors.transparent,
-      canvasColor: Theme.of(context).brightness == Brightness.dark ? Colors.red : Colors.green,
       inputDecorationTheme: InputDecorationTheme(
         border: InputBorder.none,
       ),
@@ -69,7 +68,7 @@ class SearchScreen extends SearchDelegate {
           close(context, null);
         },
         child: Container(
-          padding: EdgeInsets.only(left: textPadding, top: myPadding / 2),
+          padding: EdgeInsets.only(left: textPadding, top: textPadding / 2),
           color: Theme.of(context).backgroundColor,
           child: Stack(
             children: [
