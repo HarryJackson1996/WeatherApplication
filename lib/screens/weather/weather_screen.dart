@@ -127,7 +127,7 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
-                flex: 4,
+                flex: 3,
                 child: Container(
                   padding: EdgeInsets.only(
                     right: myPadding,

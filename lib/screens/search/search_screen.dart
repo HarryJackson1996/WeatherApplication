@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_application/blocs/search/search_bloc.dart';
 import 'package:weather_application/blocs/weather/weather_bloc.dart';
 import 'package:weather_application/consts/box_consts.dart';
 import 'package:weather_application/consts/screen_consts.dart';
+import 'package:weather_application/models/search_model.dart';
 import 'package:weather_application/utils/enums.dart';
 import 'package:weather_application/widgets/themed_text.dart';
 import '../../utils/extensions/extensions.dart';
@@ -56,49 +58,101 @@ class SearchScreen extends SearchDelegate {
         ),
       );
     } else {
-      return GestureDetector(
-        onTap: () {
-          BlocProvider.of<WeatherBloc>(context).add(
-            WeatherFetchedEvent(
-              city: query.capitalise(),
-              id: weatherBoxKey,
-              unit: 'metric',
+      return Container(
+        padding: EdgeInsets.only(left: textPadding, top: textPadding / 2),
+        color: Theme.of(context).backgroundColor,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              child: ThemedText(
+                'Results',
+                themedTextStyle: ThemedTextStyle.H2,
+              ),
             ),
-          );
-          close(context, null);
-        },
-        child: Container(
-          padding: EdgeInsets.only(left: textPadding, top: textPadding / 2),
-          color: Theme.of(context).backgroundColor,
-          child: Stack(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    child: ThemedText(
-                      'Results',
-                      themedTextStyle: ThemedTextStyle.H2,
-                    ),
+            GestureDetector(
+              onTap: () {
+                BlocProvider.of<WeatherBloc>(context).add(
+                  WeatherFetchedEvent(
+                    city: query.capitalise(),
+                    id: weatherBoxKey,
+                    unit: 'metric',
                   ),
-                  Container(
-                    height: 30.0,
-                    child: Row(
+                );
+                close(context, null);
+              },
+              child: Container(
+                padding: EdgeInsets.only(top: myPadding),
+                child: Row(
+                  children: [
+                    ThemedText(
+                      query.capitalise(),
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      size: 15.0,
+                    )
+                  ],
+                ),
+              ),
+            ),
+            BlocBuilder<SearchBloc, SearchState>(
+              builder: (context, state) {
+                if (state is SearchSavedSuccessState) {
+                  return Padding(
+                    padding: const EdgeInsets.only(top: myPadding),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ThemedText(
-                          query.capitalise(),
+                        Container(
+                          child: ThemedText(
+                            'Recent searches',
+                            themedTextStyle: ThemedTextStyle.H2,
+                          ),
                         ),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          size: 15.0,
-                        )
+                        Container(
+                          child: Column(
+                            children: [
+                              for (String value in state.locations.locations.values) ...{
+                                Padding(
+                                  padding: EdgeInsets.only(top: 20.0),
+                                  child: GestureDetector(
+                                    onTap: () async {
+                                      BlocProvider.of<WeatherBloc>(context).add(
+                                        WeatherFetchedEvent(
+                                          city: value,
+                                          id: weatherBoxKey,
+                                          unit: 'metric',
+                                        ),
+                                      );
+                                      close(context, null);
+                                    },
+                                    child: Row(
+                                      children: [
+                                        ThemedText(
+                                          value.capitalise(),
+                                        ),
+                                        Icon(
+                                          Icons.arrow_forward_ios,
+                                          size: 15.0,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              }
+                            ],
+                          ),
+                        ),
                       ],
                     ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+                  );
+                } else {
+                  return CircularProgressIndicator();
+                }
+              },
+            )
+          ],
         ),
       );
     }

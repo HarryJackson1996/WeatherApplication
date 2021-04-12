@@ -4,7 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:weather_application/blocs/search/search_bloc.dart';
 import 'package:weather_application/models/forecast_model.dart';
+import 'package:weather_application/models/search_model.dart';
+import 'package:weather_application/repositories/search_repository.dart';
 import 'package:weather_application/repositories/settings_repository.dart';
 import 'package:weather_application/repositories/weather_repository.dart';
 import 'package:weather_application/themes/app_themes.dart';
@@ -37,6 +40,7 @@ void _registerTypeAdapters() {
   Hive.registerAdapter(AppThemeAdapter());
   Hive.registerAdapter(SettingsAdapter());
   Hive.registerAdapter(TempUnitAdapter());
+  Hive.registerAdapter(SearchAdapter());
 }
 
 void main() async {
@@ -47,6 +51,8 @@ void main() async {
   var weatherBox = await Hive.openBox<Weather>(weatherBoxKey);
   var themeBox = await Hive.openBox<AppTheme>(themeBoxKey);
   var settingsBox = await Hive.openBox<Settings>(settingsBoxKey);
+  var searchBox = await Hive.openBox<Search>(searchBoxKey);
+
   Bloc.observer = SimpleBlocDelegate();
   var myCity = weatherBox.get(weatherBoxKey)?.name ?? 'London';
   runApp(
@@ -85,6 +91,14 @@ void main() async {
           )..add(
               SettingsInitEvent(settingsBoxKey),
             ),
+        ),
+        BlocProvider<SearchBloc>(
+          create: (context) => SearchBloc(
+            repository: SearchRepository(
+              box: HiveRepository(searchBox),
+            ),
+            weatherBloc: BlocProvider.of<WeatherBloc>(context),
+          )..add(SearchFetchedEvent()),
         ),
       ],
       child: MyApp(),
