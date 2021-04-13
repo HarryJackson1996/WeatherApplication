@@ -3,6 +3,7 @@ import 'package:weather_application/blocs/settings/settings_bloc.dart';
 import 'package:weather_application/consts/consts.dart';
 import 'package:weather_application/consts/screen_consts.dart';
 import 'package:weather_application/models/weather_model.dart';
+import 'package:weather_application/screens/weather/widgets/modal/weather_modal.dart';
 import 'package:weather_application/widgets/weather_error.dart';
 import 'package:weather_application/utils/date_utils.dart';
 import 'package:weather_application/utils/enums.dart';
@@ -21,12 +22,14 @@ class WeatherScreen extends StatefulWidget {
   _WeatherScreenState createState() => _WeatherScreenState();
 }
 
-class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProviderStateMixin, WidgetsBindingObserver {
+class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateMixin, WidgetsBindingObserver {
   AnimationController _controller;
+  AnimationController _iconController;
 
   @override
   void initState() {
     super.initState();
+    _iconController = AnimationController(vsync: this, duration: Duration(milliseconds: 450));
     WidgetsBinding.instance.addObserver(this);
   }
 
@@ -77,20 +80,32 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
                 )
               ],
             ),
-            leading: IconButton(
-              icon: Container(
-                child: Icon(
-                  Icons.refresh,
+            leading: Builder(builder: (context) {
+              _iconController = AnimationController(duration: Duration(milliseconds: 450), vsync: this);
+              return IconButton(
+                icon: Icon(
+                  Icons.menu_sharp,
                   color: Theme.of(context).buttonColor,
                 ),
-              ),
-              onPressed: () async {
-                BlocProvider.of<WeatherBloc>(context)
-                  ..add(
-                    WeatherFetchedEvent(id: weatherBoxKey, city: myCity, unit: 'Metric'),
+                onPressed: () async {
+                  _iconController.forward();
+                  await showModalBottomSheet(
+                    context: context,
+                    enableDrag: true,
+                    isDismissible: true,
+                    isScrollControlled: true,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(10.0),
+                      ),
+                    ),
+                    builder: (context) {
+                      return WeatherModal();
+                    },
                   );
-              },
-            ),
+                },
+              );
+            }),
             actions: [
               IconButton(
                 icon: Icon(
@@ -123,42 +138,61 @@ class _WeatherScreenState extends State<WeatherScreen> with SingleTickerProvider
       playAndResetAnimation();
       return BlocBuilder<SettingsBloc, SettingsState>(
         builder: (context, settingsState) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                flex: 3,
-                child: Container(
-                  padding: EdgeInsets.only(
-                    right: myPadding,
-                    bottom: myPadding / 2,
-                    top: myPadding / 2,
-                    left: myPadding,
+          return RefreshIndicator(
+            onRefresh: () async {
+              BlocProvider.of<WeatherBloc>(context)
+                ..add(
+                  WeatherFetchedEvent(id: weatherBoxKey, city: state.city, unit: 'Metric'),
+                );
+            },
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return SingleChildScrollView(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  child: Container(
+                    height: constraints.biggest.height,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          flex: 3,
+                          child: Container(
+                            padding: EdgeInsets.only(
+                              right: myPadding,
+                              bottom: myPadding / 2,
+                              top: myPadding / 2,
+                              left: myPadding,
+                            ),
+                            color: Theme.of(context).backgroundColor,
+                            child: CurrentWeatherCard(state.weather, settingsState.settings),
+                          ).animate(
+                            _controller,
+                            start: 0.2,
+                            end: 0.7,
+                            curve: Curves.linear,
+                            animationType: AnimationType.FADE,
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            color: Theme.of(context).backgroundColor,
+                            child: ForecastWeather(state.weather.forecast.forecast, settingsState.settings),
+                          ).animate(
+                            _controller,
+                            start: 0.4,
+                            end: 0.9,
+                            curve: Curves.linear,
+                            animationType: AnimationType.FADE,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  color: Theme.of(context).backgroundColor,
-                  child: CurrentWeatherCard(state.weather, settingsState.settings),
-                ).animate(
-                  _controller,
-                  start: 0.2,
-                  end: 0.7,
-                  curve: Curves.linear,
-                  animationType: AnimationType.FADE,
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Container(
-                  color: Theme.of(context).backgroundColor,
-                  child: ForecastWeather(state.weather.forecast.forecast, settingsState.settings),
-                ).animate(
-                  _controller,
-                  start: 0.4,
-                  end: 0.9,
-                  curve: Curves.linear,
-                  animationType: AnimationType.FADE,
-                ),
-              ),
-            ],
+                );
+              },
+            ),
           );
         },
       );
