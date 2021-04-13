@@ -40,8 +40,13 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   Stream<SearchState> _mapSearchFetchedToState(SearchFetchedEvent event) async* {
-    Search search = await repository.get(searchBoxKey);
-    yield SearchUpdatedSuccessState(search: search);
+    yield SearchLoading();
+    try {
+      Search search = await repository.get(searchBoxKey);
+      yield SearchUpdatedSuccessState(search: search);
+    } catch (e) {
+      yield SearchUpdatedFailedState();
+    }
   }
 
   Stream<SearchState> _mapSearchAddedToState(SearchAddedEvent event) async* {

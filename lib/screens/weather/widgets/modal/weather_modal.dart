@@ -54,9 +54,12 @@ class WeatherModal extends StatelessWidget {
                           itemCount: state.search.locations.length,
                           physics: NeverScrollableScrollPhysics(),
                           itemBuilder: (BuildContext context, int index) {
-                            return WeatherModalItem(
-                              state: state,
-                              index: index,
+                            return Padding(
+                              padding: EdgeInsets.only(bottom: index == state.search.locations.length - 1 ? 10 : 0),
+                              child: WeatherModalItem(
+                                state: state,
+                                index: index,
+                              ),
                             );
                           },
                         ),

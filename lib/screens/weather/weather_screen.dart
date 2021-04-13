@@ -24,12 +24,10 @@ class WeatherScreen extends StatefulWidget {
 
 class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateMixin, WidgetsBindingObserver {
   AnimationController _controller;
-  AnimationController _iconController;
 
   @override
   void initState() {
     super.initState();
-    _iconController = AnimationController(vsync: this, duration: Duration(milliseconds: 450));
     WidgetsBinding.instance.addObserver(this);
   }
 
@@ -81,14 +79,12 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
               ],
             ),
             leading: Builder(builder: (context) {
-              _iconController = AnimationController(duration: Duration(milliseconds: 450), vsync: this);
               return IconButton(
                 icon: Icon(
                   Icons.menu_sharp,
                   color: Theme.of(context).buttonColor,
                 ),
                 onPressed: () async {
-                  _iconController.forward();
                   await showModalBottomSheet(
                     context: context,
                     enableDrag: true,
