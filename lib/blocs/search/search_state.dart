@@ -9,13 +9,15 @@ abstract class SearchState extends Equatable {
 
 class SearchInitial extends SearchState {}
 
-class SearchSavedSuccessState extends SearchState {
-  final Search locations;
+class SearchLoading extends SearchState {}
 
-  SearchSavedSuccessState({this.locations});
+class SearchUpdatedSuccessState extends SearchState {
+  final Search search;
+
+  SearchUpdatedSuccessState({this.search});
 
   @override
-  List<Object> get props => [locations];
+  List<Object> get props => [search];
 }
 
-class SearchSavedFailedState extends SearchState {}
+class SearchUpdatedFailedState extends SearchState {}

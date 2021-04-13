@@ -19,10 +19,10 @@ class SearchAddedEvent extends SearchEvent {
 }
 
 class SearchRemovedEvent extends SearchEvent {
-  final Map<String, String> location;
-
-  SearchRemovedEvent({this.location});
+  final String city;
+  final String country;
+  SearchRemovedEvent({this.city, this.country});
 
   @override
-  List<Object> get props => [location];
+  List<Object> get props => [city, country];
 }

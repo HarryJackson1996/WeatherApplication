@@ -4,7 +4,6 @@ import 'package:weather_application/blocs/search/search_bloc.dart';
 import 'package:weather_application/blocs/weather/weather_bloc.dart';
 import 'package:weather_application/consts/box_consts.dart';
 import 'package:weather_application/consts/screen_consts.dart';
-import 'package:weather_application/models/search_model.dart';
 import 'package:weather_application/utils/enums.dart';
 import 'package:weather_application/widgets/themed_text.dart';
 import '../../utils/extensions/extensions.dart';
@@ -47,17 +46,7 @@ class SearchScreen extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    if (query.length <= 3) {
-      return Container(
-        width: double.infinity,
-        height: double.infinity,
-        child: Center(
-          child: ThemedText(
-            'Search term must be greater then 3 letters',
-          ),
-        ),
-      );
-    } else {
+    if (query.isNotEmpty) {
       return Container(
         padding: EdgeInsets.only(left: textPadding, top: textPadding / 2),
         color: Theme.of(context).backgroundColor,
@@ -96,63 +85,18 @@ class SearchScreen extends SearchDelegate {
                 ),
               ),
             ),
-            BlocBuilder<SearchBloc, SearchState>(
-              builder: (context, state) {
-                if (state is SearchSavedSuccessState) {
-                  return Padding(
-                    padding: const EdgeInsets.only(top: myPadding),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          child: ThemedText(
-                            'Recent searches',
-                            themedTextStyle: ThemedTextStyle.H2,
-                          ),
-                        ),
-                        Container(
-                          child: Column(
-                            children: [
-                              for (String value in state.locations.locations.values) ...{
-                                Padding(
-                                  padding: EdgeInsets.only(top: 20.0),
-                                  child: GestureDetector(
-                                    onTap: () async {
-                                      BlocProvider.of<WeatherBloc>(context).add(
-                                        WeatherFetchedEvent(
-                                          city: value,
-                                          id: weatherBoxKey,
-                                          unit: 'metric',
-                                        ),
-                                      );
-                                      close(context, null);
-                                    },
-                                    child: Row(
-                                      children: [
-                                        ThemedText(
-                                          value.capitalise(),
-                                        ),
-                                        Icon(
-                                          Icons.arrow_forward_ios,
-                                          size: 15.0,
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              }
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                } else {
-                  return CircularProgressIndicator();
-                }
-              },
-            )
           ],
+        ),
+      );
+    } else {
+      return Container(
+        color: Theme.of(context).backgroundColor,
+        padding: EdgeInsets.only(bottom: AppBar().preferredSize.height),
+        child: Center(
+          child: ThemedText(
+            'Enter a location name',
+            themedTextStyle: ThemedTextStyle.DEFAULT,
+          ),
         ),
       );
     }
@@ -160,8 +104,17 @@ class SearchScreen extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return Container(
-      color: Theme.of(context).backgroundColor,
-    );
+    return query.length == 0
+        ? Container(
+            padding: EdgeInsets.only(bottom: AppBar().preferredSize.height),
+            color: Theme.of(context).backgroundColor,
+            child: Center(
+              child: ThemedText(
+                'Enter a location name',
+                themedTextStyle: ThemedTextStyle.DEFAULT,
+              ),
+            ),
+          )
+        : Container();
   }
 }
