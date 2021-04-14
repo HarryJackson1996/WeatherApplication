@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import '../enums.dart';
-import '../../consts/screen_consts.dart';
 
 extension Capitalise on String {
   String capitalise() {
-    return this[0].toUpperCase() + this.substring(1);
+    return this[0].toUpperCase() + this.substring(1).toLowerCase();
   }
 
   String unCapitalise() {
