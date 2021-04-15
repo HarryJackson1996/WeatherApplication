@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:weather_application/blocs/search/search_bloc.dart';
 import 'package:weather_application/blocs/settings/settings_bloc.dart';
 import 'package:weather_application/consts/consts.dart';
 import 'package:weather_application/consts/screen_consts.dart';
@@ -57,7 +58,17 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<WeatherBloc, WeatherState>(
+    return BlocConsumer<WeatherBloc, WeatherState>(
+      listener: (context, state) {
+        if (state is WeatherLoadSuccess) {
+          BlocProvider.of<SearchBloc>(context).add(
+            SearchAddedEvent(
+              city: state.weather.name,
+              country: state.weather.country,
+            ),
+          );
+        }
+      },
       builder: (context, state) {
         String myCity;
         if (state is WeatherLoadSuccess) {

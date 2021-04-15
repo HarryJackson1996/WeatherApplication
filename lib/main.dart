@@ -97,8 +97,7 @@ void main() async {
             repository: SearchRepository(
               box: HiveRepository(searchBox),
             ),
-            weatherBloc: BlocProvider.of<WeatherBloc>(context),
-          )..add(SearchFetchedEvent()),
+          ),
         ),
       ],
       child: MyApp(),

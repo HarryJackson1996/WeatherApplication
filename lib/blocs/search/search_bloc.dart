@@ -11,18 +11,8 @@ part 'search_state.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final SearchRepository repository;
-  final WeatherBloc weatherBloc;
-  StreamSubscription subscription;
 
-  SearchBloc({@required this.repository, this.weatherBloc}) : super(SearchInitial()) {
-    if (weatherBloc != null) {
-      subscription = weatherBloc.stream.listen((state) {
-        if (state is WeatherLoadSuccess) {
-          add(SearchAddedEvent(city: state.city, country: state.weather.country));
-        }
-      });
-    }
-  }
+  SearchBloc({@required this.repository}) : super(SearchInitial());
 
   @override
   Stream<SearchState> mapEventToState(
@@ -75,11 +65,5 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     } catch (e) {
       yield SearchUpdatedFailedState();
     }
-  }
-
-  @override
-  Future<void> close() {
-    subscription.cancel();
-    return super.close();
   }
 }
