@@ -138,7 +138,7 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
             onRefresh: () async {
               BlocProvider.of<WeatherBloc>(context)
                 ..add(
-                  WeatherFetchedEvent(id: weatherBoxKey, city: state.city, unit: 'Metric'),
+                  WeatherRefreshedEvent(id: weatherBoxKey, weather: state.weather),
                 );
             },
             child: LayoutBuilder(
