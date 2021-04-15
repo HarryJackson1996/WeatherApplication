@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:weather_application/interfaces/i_repository.dart';
 import 'package:weather_application/models/search_model.dart';
 
