@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:weather_application/models/weather_model.dart';
 import 'package:weather_application/repositories/weather_repository.dart';
+import 'package:weather_application/utils/date_utils.dart';
 
 part 'weather_event.dart';
 part 'weather_state.dart';
@@ -22,6 +23,17 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   ) async* {
     if (event is WeatherFetchedEvent) {
       yield* _mapWeatherFetchedToState(event);
+    }
+    if (event is WeatherRefreshedEvent) {
+      yield* _mapWeatherRefreshedToState(event);
+    }
+  }
+
+  Stream<WeatherState> _mapWeatherRefreshedToState(WeatherRefreshedEvent event) async* {
+    if (MyDateUtils.timeDifference(event.weather.dt, 10)) {
+      add(WeatherFetchedEvent(city: event.weather.name, id: event.id, unit: 'Metric'));
+    } else {
+      yield WeatherLoadSuccess(weather: event.weather, city: event.weather.name);
     }
   }
 
