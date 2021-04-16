@@ -15,8 +15,12 @@ import 'package:weather_application/widgets/themed_text.dart';
 
 class WeatherErrorWidget extends StatelessWidget {
   final DioError dioError;
+  final bool showButton;
 
-  WeatherErrorWidget({this.dioError});
+  WeatherErrorWidget({
+    this.dioError,
+    this.showButton = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -65,15 +69,17 @@ class WeatherErrorWidget extends StatelessWidget {
   Widget _moreErrorWidgets(DioError dioError, BuildContext context) {
     switch (dioError.type) {
       case DioErrorType.RESPONSE:
-        return ThemedButton(
-          text: 'Search Again',
-          function: () async {
-            showSearch(context: context, delegate: SearchScreen());
-          },
-        );
+        return showButton
+            ? ThemedButton(
+                text: 'Search Again',
+                function: () async {
+                  showSearch(context: context, delegate: SearchScreen());
+                },
+              )
+            : Container();
         break;
       case DioErrorType.DEFAULT:
-        String myCity = Hive.box<Weather>(weatherBoxKey).get(weatherBoxKey)?.name ?? 'London';
+        String myCity = Hive.box<Weather>(weatherBoxKey).get(weatherBoxKey)?.name;
         return ThemedButton(
           text: 'Retry',
           function: () async {

@@ -1,2 +1,3 @@
 const String settingsRoute = '/settings';
-const String homeRoute = '/';
+const String onboardingRoute = '/';
+const String homeRoute = '/home';

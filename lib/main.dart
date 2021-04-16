@@ -54,24 +54,16 @@ void main() async {
   var searchBox = await Hive.openBox<Search>(searchBoxKey);
 
   Bloc.observer = SimpleBlocDelegate();
-  var myCity = weatherBox.get(weatherBoxKey)?.name ?? 'London';
   runApp(
     MultiBlocProvider(
       providers: [
         BlocProvider<WeatherBloc>(
-          create: (BuildContext context) => WeatherBloc(
-            repository: WeatherRepository(
-              client: WeatherClient(),
-              box: HiveRepository(weatherBox),
-            ),
-          )..add(
-              WeatherFetchedEvent(
-                city: myCity,
-                id: weatherBoxKey,
-                unit: 'metric',
-              ),
-            ),
-        ),
+            create: (BuildContext context) => WeatherBloc(
+                  repository: WeatherRepository(
+                    client: WeatherClient(),
+                    box: HiveRepository(weatherBox),
+                  ),
+                )),
         BlocProvider<ThemeBloc>(
           create: (context) => ThemeBloc(
             repository: ThemeRepository(

@@ -12,7 +12,7 @@ class WeatherClient {
   }
 
   Future<Weather> fetchCurrentWeather({
-    String cityName = 'London',
+    String cityName,
     String unit = 'metric',
   }) async {
     final String url = '${_baseUrl}weather?q=$cityName&appid=$_apiKey&units=$unit';
@@ -26,7 +26,7 @@ class WeatherClient {
   }
 
   Future<Forecast> fetchForecastWeather({
-    String cityName = 'London',
+    String cityName,
     String unit = 'metric',
   }) async {
     final String url = "${_baseUrl}forecast?q=$cityName&appid=$_apiKey&units=$unit";
