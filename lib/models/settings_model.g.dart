@@ -57,15 +57,18 @@ class SettingsAdapter extends TypeAdapter<Settings> {
     };
     return Settings(
       tempUnit: fields[0] as TempUnit,
+      onboarding: fields[1] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, Settings obj) {
     writer
-      ..writeByte(1)
+      ..writeByte(2)
       ..writeByte(0)
-      ..write(obj.tempUnit);
+      ..write(obj.tempUnit)
+      ..writeByte(1)
+      ..write(obj.onboarding);
   }
 
   @override

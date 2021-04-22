@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:weather_application/utils/enums.dart';
 import 'package:weather_application/widgets/themed_button.dart';

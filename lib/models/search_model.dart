@@ -1,4 +1,3 @@
-import 'dart:collection';
 import 'package:hive/hive.dart';
 
 part 'search_model.g.dart';

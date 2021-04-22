@@ -74,10 +74,10 @@ class SettingsScreen extends StatelessWidget {
                 ],
                 onClicks: [
                   () {
-                    BlocProvider.of<SettingsBloc>(context).add(TempUpdatedEvent(settingsBoxKey, TempUnit.CELSIUS));
+                    BlocProvider.of<SettingsBloc>(context).add(TempUpdatedEvent(settingsBoxKey, tempUnit: TempUnit.CELSIUS));
                   },
                   () {
-                    BlocProvider.of<SettingsBloc>(context).add(TempUpdatedEvent(settingsBoxKey, TempUnit.FAHRENHEIT));
+                    BlocProvider.of<SettingsBloc>(context).add(TempUpdatedEvent(settingsBoxKey, tempUnit: TempUnit.FAHRENHEIT));
                   },
                 ],
               );

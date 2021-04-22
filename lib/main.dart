@@ -58,12 +58,13 @@ void main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider<WeatherBloc>(
-            create: (BuildContext context) => WeatherBloc(
-                  repository: WeatherRepository(
-                    client: WeatherClient(),
-                    box: HiveRepository(weatherBox),
-                  ),
-                )),
+          create: (BuildContext context) => WeatherBloc(
+            repository: WeatherRepository(
+              client: WeatherClient(),
+              box: HiveRepository(weatherBox),
+            ),
+          ),
+        ),
         BlocProvider<ThemeBloc>(
           create: (context) => ThemeBloc(
             repository: ThemeRepository(

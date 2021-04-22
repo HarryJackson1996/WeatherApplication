@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:weather_application/consts/consts.dart';
 import 'package:weather_application/screens/search/search_screen.dart';

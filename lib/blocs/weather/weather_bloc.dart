@@ -43,7 +43,6 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     }
     try {
       final Weather weather = await repository.getCurrentWeather(event.id, event.city, event.unit);
-      print(weather);
       yield WeatherLoadSuccess(weather: weather, city: event.city);
     } catch (e) {
       yield WeatherLoadFailure(e);

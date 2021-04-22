@@ -14,7 +14,10 @@ class SettingsRepository implements IRepository {
     if (settings != null) {
       return settings;
     } else {
-      final Settings settings = Settings(tempUnit: TempUnit.CELSIUS);
+      final Settings settings = Settings(
+        tempUnit: TempUnit.CELSIUS,
+        onboarding: false,
+      );
       await put(id, settings);
       return settings;
     }

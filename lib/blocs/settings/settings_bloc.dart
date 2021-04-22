@@ -16,6 +16,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
           SettingsState(
             Settings(
               tempUnit: TempUnit.CELSIUS,
+              onboarding: true,
             ),
           ),
         );
@@ -30,6 +31,9 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     if (event is TempUpdatedEvent) {
       yield* _mapTempUpdatedToState(event);
     }
+    if (event is OnboardingUpdatedEvent) {
+      yield* _mapOnboardingUpdatedToState(event);
+    }
   }
 
   Stream<SettingsState> _mapSettingsInitToState(SettingsInitEvent event) async* {
@@ -37,12 +41,25 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     yield SettingsState(settings);
   }
 
+  Stream<SettingsState> _mapOnboardingUpdatedToState(OnboardingUpdatedEvent event) async* {
+    try {
+      Settings settings = await repository.get(event.id);
+      Settings newSettings = settings.copyWith(onboarding: event.onboarding);
+      await repository.put(event.id, newSettings);
+      yield SettingsState(newSettings);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Stream<SettingsState> _mapTempUpdatedToState(TempUpdatedEvent event) async* {
     Settings settings = Settings(tempUnit: event.tempUnit);
     yield TempUpdatedState(settings);
     try {
-      await repository.put(event.id, settings);
-      yield SettingsState(settings);
+      Settings settings = await repository.get(event.id);
+      Settings newSettings = settings.copyWith(tempUnit: event.tempUnit);
+      await repository.put(event.id, newSettings);
+      yield SettingsState(newSettings);
     } catch (e) {
       print(e);
     }
