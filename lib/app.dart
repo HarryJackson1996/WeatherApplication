@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'blocs/blocs.dart';
 import 'package:weather_application/themes/app_themes.dart';
-import 'blocs/theme/theme_bloc.dart';
 import 'utils/router_utils.dart' as MyRouter;
 
 class MyApp extends StatelessWidget {

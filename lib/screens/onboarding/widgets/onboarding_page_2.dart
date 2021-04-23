@@ -1,9 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:weather_application/blocs/weather/weather_bloc.dart';
-import 'package:weather_application/consts/consts.dart';
 import 'package:weather_application/screens/search/search_screen.dart';
 import 'package:weather_application/services/location_services.dart';
 import 'package:weather_application/utils/enums.dart';

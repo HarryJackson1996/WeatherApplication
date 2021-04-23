@@ -21,11 +21,11 @@ enum LocationPermissions {
 @HiveType(typeId: 5)
 class Settings extends Equatable {
   @HiveField(0)
-  TempUnit tempUnit;
+  final TempUnit tempUnit;
   @HiveField(1)
-  bool onboarding;
+  final bool onboarding;
   @HiveField(2)
-  LocationPermissions locationPermissions;
+  final LocationPermissions locationPermissions;
 
   Settings({
     this.tempUnit,

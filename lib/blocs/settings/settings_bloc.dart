@@ -1,11 +1,8 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:weather_application/models/settings_model.dart';
 import 'package:weather_application/repositories/settings_repository.dart';
-
 part 'settings_event.dart';
 part 'settings_state.dart';
 

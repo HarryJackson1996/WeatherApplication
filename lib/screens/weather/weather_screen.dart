@@ -1,10 +1,8 @@
 import 'package:hive/hive.dart';
-import 'package:weather_application/blocs/search/search_bloc.dart';
-import 'package:weather_application/blocs/settings/settings_bloc.dart';
+import 'package:weather_application/blocs/blocs.dart';
 import 'package:weather_application/consts/consts.dart';
-import 'package:weather_application/consts/screen_consts.dart';
+import '../search/search_screen.dart';
 import 'package:weather_application/models/weather_model.dart';
-import 'package:weather_application/screens/weather/widgets/modal/weather_modal.dart';
 import 'package:weather_application/widgets/weather_error.dart';
 import 'package:weather_application/utils/date_utils.dart';
 import 'package:weather_application/utils/enums.dart';
@@ -12,10 +10,8 @@ import 'package:weather_application/widgets/annotated_scaffold.dart';
 import 'package:weather_application/widgets/themed_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_application/blocs/weather/weather_bloc.dart';
 import 'package:weather_application/screens/weather/widgets/forecast/forecast_weather.dart';
 import 'package:weather_application/screens/weather/widgets/weather/weather_card.dart';
-import '../search/search_screen.dart';
 import '../../utils/extensions/extensions.dart';
 
 class WeatherScreen extends StatefulWidget {
@@ -95,21 +91,22 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
                   Icons.menu_sharp,
                   color: Theme.of(context).buttonColor,
                 ),
-                onPressed: () async {
-                  await showModalBottomSheet(
-                    context: context,
-                    enableDrag: true,
-                    isDismissible: true,
-                    isScrollControlled: true,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(10.0),
-                      ),
-                    ),
-                    builder: (context) {
-                      return WeatherModal();
-                    },
-                  );
+                onPressed: () {
+                  Navigator.pushNamed(context, locationsRoute);
+                  // await showModalBottomSheet(
+                  //   context: context,
+                  //   enableDrag: true,
+                  //   isDismissible: true,
+                  //   isScrollControlled: true,
+                  //   shape: RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.vertical(
+                  //       top: Radius.circular(10.0),
+                  //     ),
+                  //   ),
+                  //   builder: (context) {
+                  //     return WeatherModal();
+                  //   },
+                  // );
                 },
               );
             }),
@@ -121,15 +118,6 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
                 ),
                 onPressed: () async {
                   showSearch(context: context, delegate: SearchScreen());
-                },
-              ),
-              IconButton(
-                icon: Icon(
-                  Icons.settings,
-                  color: Theme.of(context).buttonColor,
-                ),
-                onPressed: () {
-                  Navigator.pushNamed(context, settingsRoute);
                 },
               ),
             ],
