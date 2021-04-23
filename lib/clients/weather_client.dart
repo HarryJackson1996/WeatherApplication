@@ -12,10 +12,16 @@ class WeatherClient {
   }
 
   Future<Weather> fetchCurrentWeather({
-    String cityName = 'London',
-    String unit = 'metric',
+    String city,
+    String lat,
+    String lon,
   }) async {
-    final String url = '${_baseUrl}weather?q=$cityName&appid=$_apiKey&units=$unit';
+    String url;
+    if (city != null) {
+      url = '${_baseUrl}weather?q=$city&appid=$_apiKey&units=metric';
+    } else if (lon != null && lat != null) {
+      url = '${_baseUrl}weather?lat=$lat&lon=$lon&appid=$_apiKey&units=metric';
+    }
     try {
       final response = await _dio.get(url);
       final weather = Weather.fromJson(response.data);
@@ -26,10 +32,16 @@ class WeatherClient {
   }
 
   Future<Forecast> fetchForecastWeather({
-    String cityName = 'London',
-    String unit = 'metric',
+    String city,
+    String lat,
+    String lon,
   }) async {
-    final String url = "${_baseUrl}forecast?q=$cityName&appid=$_apiKey&units=$unit";
+    String url;
+    if (city != null) {
+      url = '${_baseUrl}forecast?q=$city&appid=$_apiKey&units=metric';
+    } else if (lon != null && lat != null) {
+      url = '${_baseUrl}forecast?lat=$lat&lon=$lon&appid=$_apiKey&units=metric';
+    }
     try {
       final response = await _dio.get(url);
       return Forecast.fromJson(response.data);

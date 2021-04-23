@@ -18,17 +18,32 @@ class WeatherRefreshedEvent extends WeatherEvent {
   List<Object> get props => [weather, id];
 }
 
+class WeatherSearchedEvent extends WeatherEvent {
+  final String id;
+  final String city;
+
+  const WeatherSearchedEvent({
+    this.id,
+    this.city,
+  });
+
+  @override
+  List<Object> get props => [id, city];
+}
+
 class WeatherFetchedEvent extends WeatherEvent {
   final String id;
   final String city;
-  final String unit;
+  final String lat;
+  final String lon;
 
   const WeatherFetchedEvent({
     this.id,
     this.city,
-    this.unit,
+    this.lat,
+    this.lon,
   });
 
   @override
-  List<Object> get props => [id, city, unit];
+  List<Object> get props => [id, city, lat, lon];
 }

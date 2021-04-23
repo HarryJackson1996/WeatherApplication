@@ -9,7 +9,7 @@ class SearchRepository implements IRepository {
   }) : assert(box != null);
 
   @override
-  Future<Search> get(id, [String cityName, String unit]) async {
+  Future<Search> get(id, {String city, String lat, String lon}) async {
     Search locations = await this.box.get(id);
     if (locations != null) {
       return locations;

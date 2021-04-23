@@ -31,7 +31,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
 
   Stream<WeatherState> _mapWeatherRefreshedToState(WeatherRefreshedEvent event) async* {
     if (MyDateUtils.timeDifference(event.weather.dt, 10)) {
-      add(WeatherFetchedEvent(city: event.weather.name, id: event.id, unit: 'Metric'));
+      add(WeatherFetchedEvent(city: event.weather.name, id: event.id));
     } else {
       yield WeatherLoadSuccess(weather: event.weather, city: event.weather.name);
     }
@@ -42,8 +42,12 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       yield WeatherLoading();
     }
     try {
-      final Weather weather = await repository.getCurrentWeather(event.id, event.city, event.unit);
-      print(weather);
+      final Weather weather = await repository.getCurrentWeather(
+        event.id,
+        city: event.city,
+        lat: event.lat,
+        lon: event.lon,
+      );
       yield WeatherLoadSuccess(weather: weather, city: event.city);
     } catch (e) {
       yield WeatherLoadFailure(e);

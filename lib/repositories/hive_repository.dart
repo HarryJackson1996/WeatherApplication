@@ -7,7 +7,7 @@ class HiveRepository<T> implements IRepository<T> {
   HiveRepository(this._box) : assert(_box != null);
 
   @override
-  Future<dynamic> get(id, [String cityName, String unit]) async {
+  Future<dynamic> get(id, {String city, String lat, String lon}) async {
     if (this.isBoxOpen && this._box.isNotEmpty) {
       try {
         return this._box.get(id);

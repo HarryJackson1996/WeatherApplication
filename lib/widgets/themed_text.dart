@@ -9,6 +9,9 @@ class ThemedText extends StatelessWidget {
   final String font;
   final double fontSize;
   final TextAlign textAlign;
+  final Color textColor;
+  final double lineSpacing;
+  final double letterSpacing;
 
   ThemedText(
     this.text, {
@@ -16,6 +19,9 @@ class ThemedText extends StatelessWidget {
     this.font = 'Muli',
     this.fontSize,
     this.textAlign = TextAlign.center,
+    this.textColor,
+    this.lineSpacing,
+    this.letterSpacing,
   });
 
   @override
@@ -24,12 +30,20 @@ class ThemedText extends StatelessWidget {
         ? Text(
             text,
             textAlign: textAlign,
+            style: TextStyle(
+              color: textColor,
+              letterSpacing: letterSpacing,
+              height: lineSpacing,
+            ),
           )
         : Text(
             text,
             textAlign: textAlign,
             style: GoogleFonts.getFont(
               font,
+              color: textColor,
+              height: lineSpacing,
+              letterSpacing: letterSpacing,
               textStyle: themedTextStyle.getCustomTextStyle(context, fontSize),
             ),
           );

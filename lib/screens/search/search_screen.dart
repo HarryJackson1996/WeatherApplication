@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_application/blocs/search/search_bloc.dart';
+import 'package:weather_application/blocs/settings/settings_bloc.dart';
 import 'package:weather_application/blocs/weather/weather_bloc.dart';
 import 'package:weather_application/consts/box_consts.dart';
+import 'package:weather_application/consts/consts.dart';
 import 'package:weather_application/consts/screen_consts.dart';
 import 'package:weather_application/utils/enums.dart';
 import 'package:weather_application/widgets/themed_text.dart';
@@ -45,75 +48,56 @@ class SearchScreen extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    if (query.isNotEmpty) {
-      return Container(
-        padding: EdgeInsets.only(left: textPadding, top: textPadding / 2),
-        color: Theme.of(context).backgroundColor,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              child: ThemedText(
-                'Results',
-                themedTextStyle: ThemedTextStyle.H2,
-              ),
+    return Container(
+      padding: EdgeInsets.only(left: textPadding, top: textPadding / 2),
+      color: Theme.of(context).backgroundColor,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            child: ThemedText(
+              'Results',
+              themedTextStyle: ThemedTextStyle.H2,
             ),
-            GestureDetector(
-              onTap: () {
-                BlocProvider.of<WeatherBloc>(context).add(
-                  WeatherFetchedEvent(
-                    city: query.capitalise(),
-                    id: weatherBoxKey,
-                    unit: 'metric',
-                  ),
-                );
-                close(context, null);
-              },
-              child: Container(
-                padding: EdgeInsets.only(top: myPadding),
-                child: Row(
-                  children: [
-                    ThemedText(
-                      query.capitalise(),
-                    ),
-                    Icon(
-                      Icons.arrow_forward_ios,
-                      size: 15.0,
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    } else {
-      return Container(
-        color: Theme.of(context).backgroundColor,
-        padding: EdgeInsets.only(bottom: AppBar().preferredSize.height),
-        child: Center(
-          child: ThemedText(
-            'Enter a location name',
-            themedTextStyle: ThemedTextStyle.DEFAULT,
           ),
-        ),
-      );
-    }
+          GestureDetector(
+            onTap: () async {
+              BlocProvider.of<WeatherBloc>(context).add(
+                WeatherFetchedEvent(
+                  city: query.capitalise(),
+                  id: weatherBoxKey,
+                ),
+              );
+              BlocProvider.of<SettingsBloc>(context).add(
+                OnboardingUpdatedEvent(
+                  settingsBoxKey,
+                  onboarding: true,
+                ),
+              );
+              Navigator.pushReplacementNamed(context, homeRoute);
+            },
+            child: Container(
+              padding: EdgeInsets.only(top: myPadding),
+              child: Row(
+                children: [
+                  ThemedText(
+                    query.capitalise(),
+                  ),
+                  Icon(
+                    Icons.arrow_forward_ios,
+                    size: 15.0,
+                  )
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return query.length == 0
-        ? Container(
-            padding: EdgeInsets.only(bottom: AppBar().preferredSize.height),
-            color: Theme.of(context).backgroundColor,
-            child: Center(
-              child: ThemedText(
-                'Enter a location name',
-                themedTextStyle: ThemedTextStyle.DEFAULT,
-              ),
-            ),
-          )
-        : Container();
+    return Container();
   }
 }

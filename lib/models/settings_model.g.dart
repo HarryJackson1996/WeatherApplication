@@ -45,9 +45,48 @@ class TempUnitAdapter extends TypeAdapter<TempUnit> {
           typeId == other.typeId;
 }
 
-class SettingsAdapter extends TypeAdapter<Settings> {
+class LocationPermissionsAdapter extends TypeAdapter<LocationPermissions> {
   @override
   final int typeId = 4;
+
+  @override
+  LocationPermissions read(BinaryReader reader) {
+    switch (reader.readByte()) {
+      case 0:
+        return LocationPermissions.ALLOWED;
+      case 1:
+        return LocationPermissions.DENIED;
+      default:
+        return LocationPermissions.ALLOWED;
+    }
+  }
+
+  @override
+  void write(BinaryWriter writer, LocationPermissions obj) {
+    switch (obj) {
+      case LocationPermissions.ALLOWED:
+        writer.writeByte(0);
+        break;
+      case LocationPermissions.DENIED:
+        writer.writeByte(1);
+        break;
+    }
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is LocationPermissionsAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class SettingsAdapter extends TypeAdapter<Settings> {
+  @override
+  final int typeId = 5;
 
   @override
   Settings read(BinaryReader reader) {
@@ -57,15 +96,21 @@ class SettingsAdapter extends TypeAdapter<Settings> {
     };
     return Settings(
       tempUnit: fields[0] as TempUnit,
+      onboarding: fields[1] as bool,
+      locationPermissions: fields[2] as LocationPermissions,
     );
   }
 
   @override
   void write(BinaryWriter writer, Settings obj) {
     writer
-      ..writeByte(1)
+      ..writeByte(3)
       ..writeByte(0)
-      ..write(obj.tempUnit);
+      ..write(obj.tempUnit)
+      ..writeByte(1)
+      ..write(obj.onboarding)
+      ..writeByte(2)
+      ..write(obj.locationPermissions);
   }
 
   @override

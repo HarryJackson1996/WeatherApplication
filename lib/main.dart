@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:weather_application/blocs/search/search_bloc.dart';
@@ -41,6 +42,7 @@ void _registerTypeAdapters() {
   Hive.registerAdapter(SettingsAdapter());
   Hive.registerAdapter(TempUnitAdapter());
   Hive.registerAdapter(SearchAdapter());
+  Hive.registerAdapter(LocationPermissionsAdapter());
 }
 
 void main() async {
@@ -52,9 +54,9 @@ void main() async {
   var themeBox = await Hive.openBox<AppTheme>(themeBoxKey);
   var settingsBox = await Hive.openBox<Settings>(settingsBoxKey);
   var searchBox = await Hive.openBox<Search>(searchBoxKey);
+  var myCity = weatherBox.get(weatherBoxKey)?.name ?? '';
 
   Bloc.observer = SimpleBlocDelegate();
-  var myCity = weatherBox.get(weatherBoxKey)?.name ?? 'London';
   runApp(
     MultiBlocProvider(
       providers: [
@@ -66,9 +68,8 @@ void main() async {
             ),
           )..add(
               WeatherFetchedEvent(
-                city: myCity,
                 id: weatherBoxKey,
-                unit: 'metric',
+                city: myCity,
               ),
             ),
         ),

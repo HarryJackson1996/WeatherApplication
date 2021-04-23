@@ -9,12 +9,16 @@ class SettingsRepository implements IRepository {
   }) : assert(box != null);
 
   @override
-  Future<Settings> get(id, [String cityName, String unit]) async {
+  Future<Settings> get(id, {String city, String lat, String lon}) async {
     final settings = await this.box.get(id);
     if (settings != null) {
       return settings;
     } else {
-      final Settings settings = Settings(tempUnit: TempUnit.CELSIUS);
+      final Settings settings = Settings(
+        tempUnit: TempUnit.CELSIUS,
+        onboarding: false,
+        locationPermissions: null,
+      );
       await put(id, settings);
       return settings;
     }

@@ -1,4 +1,4 @@
-const String weatherBoxKey = 'myCurrentBoxKey';
-const String themeBoxKey = 'myThemeBoxKey';
-const String settingsBoxKey = 'mySettingsBoxKey';
-const String searchBoxKey = 'mySearchBoxKey';
+const String weatherBoxKey = 'newCurrentBoxKey';
+const String themeBoxKey = 'newThemeBoxKey';
+const String settingsBoxKey = 'newSettingsBoxKey';
+const String searchBoxKey = 'newSearchBoxKey';

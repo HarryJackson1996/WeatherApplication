@@ -12,3 +12,7 @@ class SettingsState extends Equatable {
 class TempUpdatedState extends SettingsState {
   TempUpdatedState(Settings settings) : super(settings);
 }
+
+class OnboardingUpdatedState extends SettingsState {
+  OnboardingUpdatedState(Settings settings) : super(settings);
+}

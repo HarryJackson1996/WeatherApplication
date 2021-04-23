@@ -23,7 +23,6 @@ class WeatherModalItem extends StatelessWidget {
               WeatherFetchedEvent(
                 city: state.search.locations.values.elementAt(index),
                 id: weatherBoxKey,
-                unit: 'metric',
               ),
             );
             Navigator.pop(context);

@@ -45,10 +45,10 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
     switch (state) {
       case AppLifecycleState.resumed:
         Weather weather = Hive.box<Weather>(weatherBoxKey).get(weatherBoxKey);
-        String myCity = weather?.name ?? 'London';
+        String myCity = weather?.name;
         if (MyDateUtils.timeDifference(weather.dt, 20)) {
           BlocProvider.of<WeatherBloc>(context).add(
-            WeatherFetchedEvent(id: weatherBoxKey, city: myCity, unit: 'Metric'),
+            WeatherFetchedEvent(id: weatherBoxKey, city: myCity),
           );
         }
         break;
@@ -72,7 +72,7 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
       builder: (context, state) {
         String myCity;
         if (state is WeatherLoadSuccess) {
-          myCity = state.city;
+          myCity = state.weather.name;
         } else {
           myCity = '';
         }
