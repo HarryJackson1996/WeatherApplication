@@ -38,3 +38,16 @@ class OnboardingUpdatedEvent extends SettingsEvent {
   @override
   List<Object> get props => [id, onboarding];
 }
+
+class LocationUpdatedEvent extends SettingsEvent {
+  final String id;
+  final LocationPermissions permissions;
+
+  LocationUpdatedEvent(
+    this.id, {
+    this.permissions,
+  });
+
+  @override
+  List<Object> get props => [id, permissions];
+}

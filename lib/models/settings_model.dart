@@ -11,27 +11,40 @@ enum TempUnit {
 }
 
 @HiveType(typeId: 4)
+enum LocationPermissions {
+  @HiveField(0)
+  ALLOWED,
+  @HiveField(1)
+  DENIED,
+}
+
+@HiveType(typeId: 5)
 class Settings extends Equatable {
   @HiveField(0)
   TempUnit tempUnit;
   @HiveField(1)
   bool onboarding;
+  @HiveField(2)
+  LocationPermissions locationPermissions;
 
   Settings({
     this.tempUnit,
-    this.onboarding,
+    this.onboarding = false,
+    this.locationPermissions,
   });
 
   Settings copyWith({
     TempUnit tempUnit,
     bool onboarding,
+    LocationPermissions locationPermissions,
   }) {
     return Settings(
       tempUnit: tempUnit ?? this.tempUnit,
       onboarding: onboarding ?? this.onboarding,
+      locationPermissions: locationPermissions ?? this.locationPermissions,
     );
   }
 
   @override
-  List<Object> get props => [tempUnit, onboarding];
+  List<Object> get props => [tempUnit, onboarding, locationPermissions];
 }

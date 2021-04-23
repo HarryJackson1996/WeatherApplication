@@ -66,7 +66,6 @@ class SearchScreen extends SearchDelegate {
                 WeatherFetchedEvent(
                   city: query.capitalise(),
                   id: weatherBoxKey,
-                  unit: 'metric',
                 ),
               );
               BlocProvider.of<SettingsBloc>(context).add(

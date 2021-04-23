@@ -1,7 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:weather_application/blocs/weather/weather_bloc.dart';
 import 'package:weather_application/consts/consts.dart';
 import 'package:weather_application/screens/search/search_screen.dart';
+import 'package:weather_application/services/location_services.dart';
 import 'package:weather_application/utils/enums.dart';
 import 'package:weather_application/widgets/themed_button.dart';
 import 'package:weather_application/widgets/themed_text.dart';
@@ -111,8 +115,8 @@ class _OnboardingPage2State extends State<OnboardingPage2> with SingleTickerProv
                     textColor: Colors.white,
                     buttonHeight: 60.0,
                     radius: 30.0,
-                    function: () {
-                      Navigator.of(context).pushNamed(homeRoute);
+                    function: () async {
+                      await LocationServices.checkAndRequestPermissions(context);
                     },
                   ),
                 ),

@@ -8,7 +8,7 @@ part of 'search_model.dart';
 
 class SearchAdapter extends TypeAdapter<Search> {
   @override
-  final int typeId = 5;
+  final int typeId = 6;
 
   @override
   Search read(BinaryReader reader) {

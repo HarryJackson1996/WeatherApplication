@@ -9,7 +9,7 @@ class ThemeRepository implements IRepository<AppTheme> {
   }) : assert(box != null);
 
   @override
-  Future<AppTheme> get(id, [String cityName, String unit]) async {
+  Future<AppTheme> get(id, {String city, String lat, String lon}) async {
     final appTheme = await this.box.get(id);
     if (appTheme != null) {
       return appTheme;
