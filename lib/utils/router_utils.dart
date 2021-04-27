@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:weather_application/consts/route_consts.dart';
-import 'package:weather_application/screens/onboarding/onboarding_screen.dart';
-import 'package:weather_application/screens/page_picker.dart';
-import 'package:weather_application/screens/settings/settings_screen.dart';
-import 'package:weather_application/screens/weather/weather_screen.dart';
+import 'package:weather_application/screens/screens.dart';
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case initialRoute:
         return MaterialPageRoute(builder: (_) => PagePicker());
+        break;
       case homeRoute:
         return MaterialPageRoute(builder: (_) => WeatherScreen());
+        break;
+      case locationsRoute:
+        return MaterialPageRoute(builder: (_) => LocationsScreen());
         break;
       case onboardingRoute:
         return MaterialPageRoute(builder: (_) => OnboardingScreen());

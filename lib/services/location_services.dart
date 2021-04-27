@@ -1,9 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:weather_application/blocs/settings/settings_bloc.dart';
-import 'package:weather_application/blocs/weather/weather_bloc.dart';
+import 'package:weather_application/blocs/blocs.dart';
 import 'package:weather_application/consts/box_consts.dart';
 import 'package:weather_application/consts/consts.dart';
 import 'package:weather_application/models/settings_model.dart';

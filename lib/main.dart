@@ -1,27 +1,14 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:weather_application/blocs/search/search_bloc.dart';
-import 'package:weather_application/models/forecast_model.dart';
-import 'package:weather_application/models/search_model.dart';
-import 'package:weather_application/repositories/search_repository.dart';
-import 'package:weather_application/repositories/settings_repository.dart';
-import 'package:weather_application/repositories/weather_repository.dart';
+import 'package:weather_application/models/models.dart';
+import 'package:weather_application/repositories/repositories.dart';
+import 'blocs/blocs.dart';
 import 'package:weather_application/themes/app_themes.dart';
 import 'app.dart';
-import 'blocs/settings/settings_bloc.dart';
-import 'blocs/theme/theme_bloc.dart';
-import 'blocs/weather/weather_bloc.dart';
 import 'clients/weather_client.dart';
-import 'models/weather_model.dart';
-import 'repositories/hive_repository.dart';
-import 'repositories/theme_repository.dart';
 import 'consts/box_consts.dart';
-import 'package:weather_application/models/settings_model.dart';
 
 class SimpleBlocDelegate extends BlocObserver {
   @override

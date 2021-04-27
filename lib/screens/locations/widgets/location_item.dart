@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_application/blocs/search/search_bloc.dart';
-import 'package:weather_application/blocs/weather/weather_bloc.dart';
-import 'package:weather_application/consts/box_consts.dart';
+import 'package:weather_application/blocs/blocs.dart';
 import 'package:weather_application/consts/consts.dart';
 import 'package:weather_application/widgets/themed_text.dart';
 
-class WeatherModalItem extends StatelessWidget {
+class LocationItem extends StatelessWidget {
   final SearchUpdatedSuccessState state;
   final int index;
 
-  WeatherModalItem({this.state, this.index});
+  LocationItem({this.state, this.index});
 
   @override
   Widget build(BuildContext context) {
