@@ -28,7 +28,7 @@ class WeatherTrailingWidget extends StatelessWidget {
                   child: HorizontalWeatherItem(
                     primaryText: 'Humidity',
                     iconData: WeatherIcons.humidity,
-                    value: weather.humidity.toString() + "%",
+                    value: weather.current.humidity.toString() + "%",
                   ),
                 ),
                 MyDivider(dividerType: VerticalDivider),
@@ -37,7 +37,7 @@ class WeatherTrailingWidget extends StatelessWidget {
                   child: HorizontalWeatherItem(
                     primaryText: 'Windspeed',
                     iconData: WeatherIcons.windy_2,
-                    value: weather.windSpeed + " m/s",
+                    value: weather.current.windSpeed.toString() + " m/s",
                   ),
                 ),
               ],
@@ -53,7 +53,7 @@ class WeatherTrailingWidget extends StatelessWidget {
                 child: HorizontalWeatherItem(
                   primaryText: 'Sunrise',
                   iconData: WeatherIcons.sunrise,
-                  value: MyDateUtils.unixToTimezoneDateString(weather.sunrise, weather.timezone, 'Hm'),
+                  value: MyDateUtils.unixToTimezoneDateString(weather.current.sunrise, weather.timezoneOffset.toString(), 'Hm'),
                 ),
               ),
               MyDivider(dividerType: VerticalDivider),
@@ -61,7 +61,7 @@ class WeatherTrailingWidget extends StatelessWidget {
                 child: HorizontalWeatherItem(
                   primaryText: 'Sunset',
                   iconData: WeatherIcons.sunset,
-                  value: MyDateUtils.unixToTimezoneDateString(weather.sunset, weather.timezone, 'Hm'),
+                  value: MyDateUtils.unixToTimezoneDateString(weather.current.sunset, weather.timezoneOffset.toString(), 'Hm'),
                 ),
               ),
             ],

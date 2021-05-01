@@ -30,7 +30,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   }
 
   Stream<WeatherState> _mapWeatherRefreshedToState(WeatherRefreshedEvent event) async* {
-    if (MyDateUtils.timeDifference(event.weather.dt, 10)) {
+    if (MyDateUtils.timeDifference(event.weather.current.dt, 10)) {
       add(WeatherFetchedEvent(city: event.weather.name, id: event.id));
     } else {
       yield WeatherLoadSuccess(weather: event.weather, city: event.weather.name);

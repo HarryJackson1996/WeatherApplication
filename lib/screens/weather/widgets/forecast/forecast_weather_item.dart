@@ -8,7 +8,7 @@ import 'package:weather_application/utils/weather_icons_icons.dart';
 import 'package:weather_application/models/settings_model.dart';
 
 class ForecastWeatherItem extends StatelessWidget {
-  final Weather weather;
+  final Current weather;
   final Settings settings;
 
   ForecastWeatherItem(this.weather, this.settings);
@@ -26,8 +26,8 @@ class ForecastWeatherItem extends StatelessWidget {
               padding: EdgeInsets.all(myPadding / 2),
               child: VerticalWeatherWidget(
                 primaryText: MyDateUtils.unixToDateString(weather.dt, 'EEE, HH:00'),
-                iconData: WeatherIcons.getWeatherIcon(weather.icon),
-                value: TempUtils.updateTemp(weather.temp, settings.tempUnit) + "\u00B0",
+                iconData: WeatherIcons.getWeatherIcon(weather.weather[0].icon),
+                value: TempUtils.updateTemp(weather.temp.toString(), settings.tempUnit) + "\u00B0",
                 iconFlex: 2,
               ),
             ),

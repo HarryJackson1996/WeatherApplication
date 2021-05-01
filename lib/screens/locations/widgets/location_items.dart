@@ -42,6 +42,8 @@ class LocationItems extends StatelessWidget {
               ),
             ],
           );
+        } else if (state is SearchInitial) {
+          return Container();
         } else {
           return Center(
             child: CircularProgressIndicator(),

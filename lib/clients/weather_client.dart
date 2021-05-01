@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:weather_application/models/forecast_model.dart';
+import 'package:weather_application/models/location_model.dart';
 import 'package:weather_application/models/weather_model.dart';
 
 class WeatherClient {
@@ -10,18 +10,12 @@ class WeatherClient {
   WeatherClient() {
     this._dio = Dio();
   }
-
-  Future<Weather> fetchCurrentWeather({
-    String city,
+  Future<Weather> fetchWeather({
     String lat,
     String lon,
   }) async {
     String url;
-    if (city != null) {
-      url = '${_baseUrl}weather?q=$city&appid=$_apiKey&units=metric';
-    } else if (lon != null && lat != null) {
-      url = '${_baseUrl}weather?lat=$lat&lon=$lon&appid=$_apiKey&units=metric';
-    }
+    url = '${_baseUrl}onecall?lat=$lat&lon=$lon&exclude=minutely&appid=$_apiKey&units=metric';
     try {
       final response = await _dio.get(url);
       final weather = Weather.fromJson(response.data);
@@ -31,20 +25,21 @@ class WeatherClient {
     }
   }
 
-  Future<Forecast> fetchForecastWeather({
+  Future<Location> fetchWeatherData({
     String city,
     String lat,
     String lon,
   }) async {
     String url;
-    if (city != null) {
-      url = '${_baseUrl}forecast?q=$city&appid=$_apiKey&units=metric';
-    } else if (lon != null && lat != null) {
-      url = '${_baseUrl}forecast?lat=$lat&lon=$lon&appid=$_apiKey&units=metric';
-    }
     try {
+      if (lat != null && lon != null) {
+        url = '${_baseUrl}weather?lat=$lat&lon=$lon&appid=$_apiKey&units=metric';
+      } else {
+        url = '${_baseUrl}weather?q=$city&appid=$_apiKey&units=metric';
+      }
       final response = await _dio.get(url);
-      return Forecast.fromJson(response.data);
+      final weather = Location.fromJson(response.data);
+      return weather;
     } on DioError catch (e) {
       throw e;
     }
