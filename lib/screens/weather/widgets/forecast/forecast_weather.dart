@@ -7,7 +7,7 @@ import 'forecast_weather_item.dart';
 import 'package:weather_application/models/settings_model.dart';
 
 class ForecastWeather extends StatelessWidget {
-  final List<Weather> forecast;
+  final List<Current> forecast;
   final Settings settings;
 
   ForecastWeather(this.forecast, this.settings) : assert(forecast != null);

@@ -1,5 +1,6 @@
 import 'package:weather_application/clients/weather_client.dart';
 import 'package:weather_application/interfaces/i_repository.dart';
+import 'package:weather_application/models/location_model.dart';
 import 'package:weather_application/models/weather_model.dart';
 import 'package:weather_application/utils/connectivity_utils.dart';
 
@@ -21,17 +22,17 @@ class WeatherRepository {
       return localWeather;
     } else {
       Weather remoteWeather;
-      await Future.wait([
-        this.client.fetchCurrentWeather(city: city, lat: lat, lon: lon),
-        this.client.fetchForecastWeather(city: city, lat: lat, lon: lon),
-      ]).then(
-        (value) => {
-          remoteWeather = value[0],
-          remoteWeather.forecast = value[1],
-        },
-      );
-      await this.box.put(id, remoteWeather);
+      await this.client.fetchWeatherData(city: city, lat: lat, lon: lon).then((location) async {
+        remoteWeather = await this.client.fetchWeather(lat: location.lat, lon: location.lon);
+        setWeatherValues(remoteWeather, location);
+        await this.box.put(id, remoteWeather);
+      });
       return remoteWeather;
     }
+  }
+
+  void setWeatherValues(Weather weather, Location location) {
+    weather.name = location.name;
+    weather.country = location.country;
   }
 }

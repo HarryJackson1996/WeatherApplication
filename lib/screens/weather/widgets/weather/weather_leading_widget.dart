@@ -25,24 +25,24 @@ class WeatherLeadingWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(
-                WeatherIcons.getWeatherIcon(weather.icon),
+                WeatherIcons.getWeatherIcon(weather.current.weather[0].icon),
                 size: 60.0,
               ),
               ThemedText(
-                weather.description,
+                weather.current.weather[0].description,
                 themedTextStyle: ThemedTextStyle.H2,
               ),
               SizedBox(
                 height: 5.0,
               ),
               ThemedText(
-                MyDateUtils.unixToDateString(weather.dt, 'EEEE, d MMMM yyyy'),
+                MyDateUtils.unixToDateString(weather.current.dt, 'EEEE, d MMMM yyyy'),
               ),
               SizedBox(
                 height: 20.0,
               ),
               ThemedText(
-                TempUtils.updateTemp(weather.temp, settings.tempUnit) + "\u00B0",
+                TempUtils.updateTemp(weather.current.temp.toString(), settings.tempUnit) + "\u00B0",
                 themedTextStyle: ThemedTextStyle.H1,
                 fontSize: 60.0,
               ),
@@ -56,12 +56,12 @@ class WeatherLeadingWidget extends StatelessWidget {
             children: [
               VerticalWeatherWidget(
                 primaryText: 'Min',
-                value: TempUtils.updateTemp(weather.tempMin, settings.tempUnit) + "\u00B0",
+                value: TempUtils.updateTemp(weather.daily[0].temp.min.toString(), settings.tempUnit) + "\u00B0",
               ),
               MyDivider(dividerType: VerticalDivider),
               VerticalWeatherWidget(
                 primaryText: 'Max',
-                value: TempUtils.updateTemp(weather.tempMax, settings.tempUnit) + "\u00B0",
+                value: TempUtils.updateTemp(weather.daily[0].temp.max.toString(), settings.tempUnit) + "\u00B0",
               ),
             ],
           ),

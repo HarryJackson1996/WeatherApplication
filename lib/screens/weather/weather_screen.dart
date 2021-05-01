@@ -42,7 +42,7 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
       case AppLifecycleState.resumed:
         Weather weather = Hive.box<Weather>(weatherBoxKey).get(weatherBoxKey);
         String myCity = weather?.name;
-        if (MyDateUtils.timeDifference(weather.dt, 20)) {
+        if (MyDateUtils.timeDifference(weather.current.dt, 20)) {
           BlocProvider.of<WeatherBloc>(context).add(
             WeatherFetchedEvent(id: weatherBoxKey, city: myCity),
           );
@@ -173,12 +173,12 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
                           flex: 1,
                           child: Container(
                             color: Theme.of(context).backgroundColor,
-                            child: ForecastWeather(state.weather.forecast.forecast, settingsState.settings),
+                            child: ForecastWeather(state.weather.hourly, settingsState.settings),
                           ).animate(
                             _controller,
                             start: 0.4,
                             end: 0.9,
-                            curve: Curves.linear,
+                            curve: Curves.easeIn,
                             animationType: AnimationType.FADE,
                           ),
                         ),

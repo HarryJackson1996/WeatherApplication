@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:weather_application/models/location_model.dart';
 import 'package:weather_application/models/models.dart';
 import 'package:weather_application/repositories/repositories.dart';
 import 'blocs/blocs.dart';
@@ -24,8 +25,14 @@ void _registerDeviceOrientations() {
 
 void _registerTypeAdapters() {
   Hive.registerAdapter(WeatherAdapter());
+  Hive.registerAdapter(DailyAdapter());
+  Hive.registerAdapter(CurrentAdapter());
+  Hive.registerAdapter(WeatherElementAdapter());
+  Hive.registerAdapter(FeelsLikeAdapter());
+  Hive.registerAdapter(TempAdapter());
   Hive.registerAdapter(ForecastAdapter());
   Hive.registerAdapter(AppThemeAdapter());
+  Hive.registerAdapter(LocationAdapter());
   Hive.registerAdapter(SettingsAdapter());
   Hive.registerAdapter(TempUnitAdapter());
   Hive.registerAdapter(SearchAdapter());

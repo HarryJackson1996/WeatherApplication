@@ -8,7 +8,7 @@ import 'package:weather_application/screens/search/search_screen.dart';
 
 class LocationServices {
   static Future<Position> getLocation() async {
-    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
+    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     return position;
   }
 
