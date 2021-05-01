@@ -1,7 +1,9 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:weather_application/locator.dart';
 import 'package:weather_application/models/location_model.dart';
 import 'package:weather_application/models/models.dart';
 import 'package:weather_application/repositories/repositories.dart';
@@ -43,6 +45,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   _registerDeviceOrientations();
   await Hive.initFlutter();
+  await Firebase.initializeApp();
+  setup();
   _registerTypeAdapters();
   var weatherBox = await Hive.openBox<Weather>(weatherBoxKey);
   var themeBox = await Hive.openBox<AppTheme>(themeBoxKey);

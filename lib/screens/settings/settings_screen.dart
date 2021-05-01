@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_application/blocs/settings/settings_bloc.dart';
 import 'package:weather_application/blocs/theme/theme_bloc.dart';
 import 'package:weather_application/consts/box_consts.dart';
+import 'package:weather_application/locator.dart';
+import 'package:weather_application/services/analytics_service.dart';
 import 'package:weather_application/themes/app_themes.dart';
 import 'package:weather_application/utils/enums.dart';
 import 'package:weather_application/widgets/annotated_scaffold.dart';
@@ -51,16 +53,20 @@ class SettingsScreen extends StatelessWidget {
               ],
               onClicks: [
                 () {
-                  BlocProvider.of<ThemeBloc>(context).add(ThemeUpdatedEvent(
-                    theme: AppTheme.LIGHT,
-                    id: themeBoxKey,
-                  ));
+                  BlocProvider.of<ThemeBloc>(context).add(
+                    ThemeUpdatedEvent(
+                      theme: AppTheme.LIGHT,
+                      id: themeBoxKey,
+                    ),
+                  );
                 },
                 () {
-                  BlocProvider.of<ThemeBloc>(context).add(ThemeUpdatedEvent(
-                    theme: AppTheme.DARK,
-                    id: themeBoxKey,
-                  ));
+                  BlocProvider.of<ThemeBloc>(context).add(
+                    ThemeUpdatedEvent(
+                      theme: AppTheme.DARK,
+                      id: themeBoxKey,
+                    ),
+                  );
                 },
               ],
             ),

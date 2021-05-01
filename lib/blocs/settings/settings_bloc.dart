@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:weather_application/locator.dart';
 import 'package:weather_application/models/settings_model.dart';
 import 'package:weather_application/repositories/settings_repository.dart';
+import 'package:weather_application/services/analytics_service.dart';
 part 'settings_event.dart';
 part 'settings_state.dart';
 
@@ -67,6 +69,10 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     try {
       Settings settings = await repository.get(event.id);
       Settings newSettings = settings.copyWith(tempUnit: event.tempUnit);
+      await getIt<AnalyticsService>().trackEvent(
+        'tempUnitUpdated',
+        {'temp_unit': event.tempUnit.toString()},
+      );
       await repository.put(event.id, newSettings);
       yield SettingsState(newSettings);
     } catch (e) {

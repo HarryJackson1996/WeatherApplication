@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:weather_application/locator.dart';
 import 'package:weather_application/screens/search/search_screen.dart';
-import 'package:weather_application/services/location_services.dart';
+import 'package:weather_application/services/location_service.dart';
 import 'package:weather_application/utils/enums.dart';
 import 'package:weather_application/widgets/themed_button.dart';
 import 'package:weather_application/widgets/themed_text.dart';
@@ -112,7 +113,7 @@ class _OnboardingPage2State extends State<OnboardingPage2> with SingleTickerProv
                     buttonHeight: 60.0,
                     radius: 30.0,
                     function: () async {
-                      await LocationServices.checkAndRequestPermissions(context);
+                      await getIt<LocationService>().checkAndRequestPermissions(context);
                     },
                   ),
                 ),

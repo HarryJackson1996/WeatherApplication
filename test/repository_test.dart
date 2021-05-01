@@ -17,9 +17,8 @@ main() async {
   });
 
   test('Should cache the data', () async {
-    await testRepository.put('test', Weather(name: 'test', temp: '20.0'));
+    await testRepository.put('test', Weather(name: 'test'));
     Weather weather = await testRepository.get('test');
     expect(weather.name, 'test');
-    expect(weather.temp, '20.0');
   });
 }
