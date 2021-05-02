@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:weather_application/blocs/blocs.dart';
 import 'package:weather_application/consts/consts.dart';
+import 'package:weather_application/locator.dart';
+import 'package:weather_application/services/analytics_service.dart';
 import 'package:weather_application/utils/enums.dart';
 import 'package:weather_application/widgets/themed_text.dart';
 import '../../utils/extensions/extensions.dart';
@@ -57,6 +59,7 @@ class SearchScreen extends SearchDelegate {
           ),
           GestureDetector(
             onTap: () async {
+              await getIt<AnalyticsService>().trackSearchEvent(query);
               BlocProvider.of<WeatherBloc>(context).add(
                 WeatherFetchedEvent(
                   city: query.capitalise(),

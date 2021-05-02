@@ -4,7 +4,9 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
+import 'package:weather_application/locator.dart';
 import 'package:weather_application/repositories/theme_repository.dart';
+import 'package:weather_application/services/analytics_service.dart';
 import 'package:weather_application/themes/app_themes.dart';
 part 'theme_event.dart';
 
@@ -28,6 +30,10 @@ class ThemeBloc extends Bloc<ThemeEvent, AppTheme> {
     if (event is ThemeUpdatedEvent) {
       await repository.put(event.id, event.theme);
       final AppTheme appTheme = await repository.get(event.id);
+      getIt<AnalyticsService>().trackEvent(
+        'themeUpdated',
+        {'app_theme': appTheme.toString()},
+      );
       yield appTheme;
     }
   }

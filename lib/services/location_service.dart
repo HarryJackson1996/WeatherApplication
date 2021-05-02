@@ -3,16 +3,18 @@ import 'package:geolocator/geolocator.dart';
 import 'package:weather_application/blocs/blocs.dart';
 import 'package:weather_application/consts/box_consts.dart';
 import 'package:weather_application/consts/consts.dart';
+import 'package:weather_application/locator.dart';
 import 'package:weather_application/models/settings_model.dart';
 import 'package:weather_application/screens/search/search_screen.dart';
+import 'package:weather_application/services/analytics_service.dart';
 
-class LocationServices {
-  static Future<Position> getLocation() async {
+class LocationService {
+  Future<Position> getLocation() async {
     Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     return position;
   }
 
-  static Future<dynamic> getLastKnownPosition() async {
+  Future<dynamic> getLastKnownPosition() async {
     Position position = await Geolocator.getLastKnownPosition();
     if (position != null) {
       return position;
@@ -21,19 +23,17 @@ class LocationServices {
     }
   }
 
-  static Future<LocationPermission> requestPermissions() async {
+  Future<LocationPermission> requestPermissions() async {
     LocationPermission permission = await Geolocator.requestPermission();
     return permission;
   }
 
-  static Future<LocationPermission> checkPermissions() async {
+  Future<LocationPermission> checkPermissions() async {
     LocationPermission permission = await Geolocator.checkPermission();
     return permission;
   }
 
-  static Future<void> permissionsUpdated() async {}
-
-  static Future<void> checkAndRequestPermissions(BuildContext context) async {
+  Future<void> checkAndRequestPermissions(BuildContext context) async {
     if (await Geolocator.isLocationServiceEnabled() == true) {
       if (BlocProvider.of<SettingsBloc>(context).state.settings.locationPermissions == null) {
         LocationPermission permission = await requestPermissions();
@@ -54,7 +54,7 @@ class LocationServices {
     }
   }
 
-  static Future<void> handlePermissions(
+  Future<void> handlePermissions(
     LocationPermission permission,
     BuildContext context,
   ) async {
@@ -62,7 +62,7 @@ class LocationServices {
       case LocationPermission.always:
       case LocationPermission.whileInUse:
         await getLocation().then(
-          (value) => {
+          (value) async => {
             BlocProvider.of<WeatherBloc>(context).add(
               WeatherFetchedEvent(
                 id: weatherBoxKey,
@@ -76,6 +76,7 @@ class LocationServices {
                 onboarding: true,
               ),
             ),
+            await getIt<AnalyticsService>().trackPermission(permission),
             Navigator.pushReplacementNamed(context, homeRoute),
           },
         );
@@ -88,6 +89,7 @@ class LocationServices {
             permissions: LocationPermissions.DENIED,
           ),
         );
+        await getIt<AnalyticsService>().trackPermission(permission);
         break;
       default:
     }
