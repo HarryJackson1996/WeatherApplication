@@ -53,7 +53,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   Stream<SearchState> _mapSearchRemovedToState(SearchRemovedEvent event) async* {
-    yield SearchLoading();
+    if (event.isDismissed == false) {
+      yield SearchLoading();
+    }
     try {
       Search search = await repository.get(searchBoxKey);
       search.locations.remove(event.country);

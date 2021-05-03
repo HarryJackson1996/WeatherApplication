@@ -21,8 +21,9 @@ class SearchAddedEvent extends SearchEvent {
 class SearchRemovedEvent extends SearchEvent {
   final String city;
   final String country;
-  SearchRemovedEvent({this.city, this.country});
+  final bool isDismissed;
+  SearchRemovedEvent({this.city, this.country, this.isDismissed = false});
 
   @override
-  List<Object> get props => [city, country];
+  List<Object> get props => [city, country, isDismissed];
 }

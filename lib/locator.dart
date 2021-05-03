@@ -1,5 +1,4 @@
 import 'package:get_it/get_it.dart';
-import 'package:weather_application/models/location_model.dart';
 import 'package:weather_application/services/analytics_service.dart';
 import 'package:weather_application/services/location_service.dart';
 
