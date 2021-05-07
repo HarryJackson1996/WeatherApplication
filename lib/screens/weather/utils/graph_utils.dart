@@ -66,6 +66,9 @@ BarChartGroupData makeGroupData(
         width: width,
         backDrawRodData: BackgroundBarChartRodData(
           show: true,
+          colors: [
+            Colors.transparent,
+          ],
         ),
       ),
     ],

@@ -1,9 +1,5 @@
-import 'dart:math';
-
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/gestures.dart';
-import 'package:weather_application/blocs/blocs.dart';
 import 'package:weather_application/models/models.dart';
 import 'package:weather_application/screens/weather/utils/graph_utils.dart';
 import 'package:weather_application/utils/enums.dart';
@@ -14,21 +10,11 @@ class BarChartSample1 extends StatefulWidget {
 
   BarChartSample1({this.daily});
 
-  final List<Color> availableColors = [
-    Colors.purpleAccent,
-    Colors.yellow,
-    Colors.lightBlue,
-    Colors.orange,
-    Colors.pink,
-    Colors.redAccent,
-  ];
-
   @override
   State<StatefulWidget> createState() => BarChartSample1State();
 }
 
 class BarChartSample1State extends State<BarChartSample1> {
-  final Color barBackgroundColor = const Color(0xff72d8bf);
   final Duration animDuration = const Duration(milliseconds: 250);
 
   int touchedIndex;
