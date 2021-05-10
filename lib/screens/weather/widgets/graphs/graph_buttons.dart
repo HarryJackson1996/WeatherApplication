@@ -31,7 +31,7 @@ class GraphButtons extends StatelessWidget {
                   );
                 },
                 child: AnimatedContainer(
-                  duration: Duration(milliseconds: 250),
+                  duration: Duration(milliseconds: 100),
                   curve: Curves.easeIn,
                   height: 40,
                   decoration: BoxDecoration(
