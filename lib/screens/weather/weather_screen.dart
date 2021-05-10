@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:weather_application/blocs/blocs.dart';
 import 'package:weather_application/consts/consts.dart';
-import 'package:weather_application/screens/weather/my_graph.dart';
+import 'package:weather_application/screens/weather/widgets/graphs/graph_selector.dart';
 import '../search/search_screen.dart';
 import 'package:weather_application/models/weather_model.dart';
 import 'package:weather_application/widgets/weather_error.dart';
@@ -94,20 +94,6 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
                 ),
                 onPressed: () {
                   Navigator.pushNamed(context, locationsRoute);
-                  // await showModalBottomSheet(
-                  //   context: context,
-                  //   enableDrag: true,
-                  //   isDismissible: true,
-                  //   isScrollControlled: true,
-                  //   shape: RoundedRectangleBorder(
-                  //     borderRadius: BorderRadius.vertical(
-                  //       top: Radius.circular(10.0),
-                  //     ),
-                  //   ),
-                  //   builder: (context) {
-                  //     return WeatherModal();
-                  //   },
-                  // );
                 },
               );
             }),
@@ -205,7 +191,7 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
                                   ),
                                   color: Theme.of(context).backgroundColor,
                                   child: Container(
-                                    child: BarChartSample1(
+                                    child: GraphSelector(
                                       daily: state.weather.daily,
                                     ),
                                   ),
