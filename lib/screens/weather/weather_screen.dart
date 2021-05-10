@@ -1,6 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:weather_application/blocs/blocs.dart';
 import 'package:weather_application/consts/consts.dart';
+import 'package:weather_application/screens/weather/widgets/graphs/graph_selector.dart';
 import '../search/search_screen.dart';
 import 'package:weather_application/models/weather_model.dart';
 import 'package:weather_application/widgets/weather_error.dart';
@@ -93,20 +94,6 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
                 ),
                 onPressed: () {
                   Navigator.pushNamed(context, locationsRoute);
-                  // await showModalBottomSheet(
-                  //   context: context,
-                  //   enableDrag: true,
-                  //   isDismissible: true,
-                  //   isScrollControlled: true,
-                  //   shape: RoundedRectangleBorder(
-                  //     borderRadius: BorderRadius.vertical(
-                  //       top: Radius.circular(10.0),
-                  //     ),
-                  //   ),
-                  //   builder: (context) {
-                  //     return WeatherModal();
-                  //   },
-                  // );
                 },
               );
             }),
@@ -144,46 +131,87 @@ class _WeatherScreenState extends State<WeatherScreen> with TickerProviderStateM
               builder: (context, constraints) {
                 return SingleChildScrollView(
                   physics: AlwaysScrollableScrollPhysics(),
-                  child: Container(
-                    height: constraints.biggest.height,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          flex: 3,
-                          child: Container(
-                            padding: EdgeInsets.only(
-                              right: myPadding,
-                              bottom: myPadding / 2,
-                              top: myPadding / 2,
-                              left: myPadding,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: constraints.biggest.height,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              flex: 3,
+                              child: Container(
+                                padding: EdgeInsets.only(
+                                  right: myPadding,
+                                  bottom: myPadding / 2,
+                                  top: myPadding / 2,
+                                  left: myPadding,
+                                ),
+                                color: Theme.of(context).backgroundColor,
+                                child: CurrentWeatherCard(state.weather, settingsState.settings),
+                              ).animate(
+                                _controller,
+                                start: 0.2,
+                                end: 0.7,
+                                curve: Curves.linear,
+                                animationType: AnimationType.FADE,
+                              ),
                             ),
-                            color: Theme.of(context).backgroundColor,
-                            child: CurrentWeatherCard(state.weather, settingsState.settings),
-                          ).animate(
-                            _controller,
-                            start: 0.2,
-                            end: 0.7,
-                            curve: Curves.linear,
-                            animationType: AnimationType.FADE,
-                          ),
+                            Expanded(
+                              flex: 1,
+                              child: Container(
+                                color: Theme.of(context).backgroundColor,
+                                child: ForecastWeather(state.weather.hourly, settingsState.settings),
+                              ).animate(
+                                _controller,
+                                start: 0.4,
+                                end: 0.9,
+                                curve: Curves.easeIn,
+                                animationType: AnimationType.FADE,
+                              ),
+                            ),
+                          ],
                         ),
-                        Expanded(
-                          flex: 1,
-                          child: Container(
-                            color: Theme.of(context).backgroundColor,
-                            child: ForecastWeather(state.weather.hourly, settingsState.settings),
-                          ).animate(
-                            _controller,
-                            start: 0.4,
-                            end: 0.9,
-                            curve: Curves.easeIn,
-                            animationType: AnimationType.FADE,
-                          ),
+                      ),
+                      SizedBox(
+                        height: constraints.biggest.height,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                                flex: 2,
+                                child: Container(
+                                  padding: EdgeInsets.only(
+                                    right: myPadding,
+                                    bottom: myPadding / 2,
+                                    top: myPadding * 1.5,
+                                    left: myPadding,
+                                  ),
+                                  color: Theme.of(context).backgroundColor,
+                                  child: Container(
+                                    child: GraphSelector(
+                                      daily: state.weather.daily,
+                                    ),
+                                  ),
+                                )
+                                // .animate(
+                                //   _controller,
+                                //   start: 0.2,
+                                //   end: 0.7,
+                                //   curve: Curves.linear,
+                                //   animationType: AnimationType.FADE,
+                                // ),
+                                ),
+                            Expanded(
+                              flex: 1,
+                              child: Container(),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 );
               },

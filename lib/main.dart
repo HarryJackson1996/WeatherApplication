@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:weather_application/blocs/graph/graph_bloc.dart';
 import 'package:weather_application/locator.dart';
+import 'package:weather_application/models/graph_model.dart';
 import 'package:weather_application/models/location_model.dart';
 import 'package:weather_application/models/models.dart';
+import 'package:weather_application/repositories/graph_repository.dart';
 import 'package:weather_application/repositories/repositories.dart';
 import 'blocs/blocs.dart';
 import 'package:weather_application/themes/app_themes.dart';
@@ -39,6 +42,9 @@ void _registerTypeAdapters() {
   Hive.registerAdapter(TempUnitAdapter());
   Hive.registerAdapter(SearchAdapter());
   Hive.registerAdapter(LocationPermissionsAdapter());
+  Hive.registerAdapter(GraphTypeAdapter());
+  Hive.registerAdapter(GraphUnitAdapter());
+  Hive.registerAdapter(GraphModelAdapter());
 }
 
 void main() async {
@@ -52,6 +58,7 @@ void main() async {
   var themeBox = await Hive.openBox<AppTheme>(themeBoxKey);
   var settingsBox = await Hive.openBox<Settings>(settingsBoxKey);
   var searchBox = await Hive.openBox<Search>(searchBoxKey);
+  var graphBox = await Hive.openBox<GraphModel>(graphBoxKey);
   var myCity = weatherBox.get(weatherBoxKey)?.name ?? '';
 
   Bloc.observer = SimpleBlocDelegate();
@@ -80,6 +87,15 @@ void main() async {
               ThemeFetchedEvent(
                 id: themeBoxKey,
               ),
+            ),
+        ),
+        BlocProvider<GraphBloc>(
+          create: (context) => GraphBloc(
+            graphRepository: GraphRepository(
+              box: HiveRepository(graphBox),
+            ),
+          )..add(
+              GraphInitEvent(id: graphBoxKey),
             ),
         ),
         BlocProvider<SettingsBloc>(
